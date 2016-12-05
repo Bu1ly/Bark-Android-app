@@ -3,16 +3,46 @@
 /**
  * Module dependencies.
  */
-
+var express = require('express');
 var app = require('../app');
 var debug = require('debug')('bark:server');
 var http = require('http');
+var fs      = require('fs');
+var parser  = require('body-parser');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+//Setup ip adress and port
+var ipaddress ;
+
+function initIPAdress() {
+    var adr = process.env.OPENSHIFT_NODEJS_IP;
+    if (typeof adr === "undefined") {
+        //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
+        //  allows us to run/test the app locally.
+        console.warn('No OPENSHIFT_NODEJS_IP var, using localhost');
+        adr = 'localhost';
+    }
+
+    ipaddress = adr;
+}
+
+var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+
+
+app.get('/', function (req, res) {
+    res.send('Hello World!')
+});
+
+app.get('/admin', function (req, res) {
+    res.setHeader('Content-Type', 'text/html');
+    res.send( fs.readFileSync('./index_admin.html') );
+});
+
+initIPAdress(); //Setup IP adress before app.listen()
+//var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
