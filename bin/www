@@ -29,21 +29,26 @@ function initIPAdress() {
     ipaddress = adr;
 }
 
-var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var port  = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
 
 app.get('/', function (req, res) {
     res.send('Hello World!')
-});
+})
 
 app.get('/admin', function (req, res) {
     res.setHeader('Content-Type', 'text/html');
     res.send( fs.readFileSync('./index_admin.html') );
-});
+})
 
 initIPAdress(); //Setup IP adress before app.listen()
+
+app.listen(port, ipaddress, function() {
+    console.log('%s: Node server started on %s:%d ...',
+        Date(Date.now() ), ipaddress, port);
+});
 //var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+//app.set('port', port);
 
 /**
  * Create HTTP server.
@@ -55,7 +60,7 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+//server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
