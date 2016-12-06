@@ -86,11 +86,15 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
-    var index = require('./routes/index');
-    var users = require('./routes/users');
+    var index = require('../routes/index');
+    var users = require('../routes/users');
 
     app.use('/', index);
     app.use('/users', users);
+
+    // view engine setup
+    app.set('views', path.join(__dirname, 'views'));
+    app.set('view engine', 'jade');
 
   function onListening() {
     var addr = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
