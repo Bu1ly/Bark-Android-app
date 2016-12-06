@@ -2,7 +2,7 @@
   "name": "bark",
   "version": "0.0.0",
   "scripts": {
-    "start":"node .bin/www",
+    "start":"node server.js",
     "deploy": "server.js"
   },
 

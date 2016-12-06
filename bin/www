@@ -86,6 +86,12 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
+    var index = require('./routes/index');
+    var users = require('./routes/users');
+
+    app.use('/', index);
+    app.use('/users', users);
+
   function onListening() {
     var addr = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
     var bind = typeof addr === 'string'
