@@ -2,11 +2,9 @@
   "name": "bark",
   "version": "0.0.0",
   "scripts": {
-    "start":"node server.js",
-    "deploy": "server.js"
+    "start":"node ./bin/www",
+    "deploy": "app.js"
   },
-  "default-ip" : "auto",
-  "default-port" : "auto",
 
   "engines": {
     "node": ">= 0.6.0",
@@ -14,10 +12,8 @@
   },
 
   "dependencies": {
-    "total.js" : "2.3.0",
     "ejs" : "0.8.x",
     "socket.io" : "0.9.16",
-    "ws" : "0.4.31",
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
@@ -26,11 +22,10 @@
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.0"
   },
-  "devDependencies": {},
-  "bundleDependencies": [],
 
-  "private": true,
-  "main": "app.js"
+
+  "private": true
+
 }
 
 
