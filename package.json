@@ -12,6 +12,7 @@
   },
 
   "dependencies": {
+    "ejs" : "0.8.x",
     "socket.io" : "0.9.16",
     "ws" : "0.4.31",
     "body-parser": "~1.15.2",
@@ -26,7 +27,7 @@
   "bundleDependencies": [],
 
   "private": true,
-  "main": "server.js"
+  "main": "app.js"
 }
 
 
