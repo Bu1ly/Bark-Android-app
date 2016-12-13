@@ -1,0 +1,17 @@
+Hi
+This is a reminder document for Heroku CLI commands
+
+* First you need to download the heroku CLI from the website according to your OS.
+
+COMMANDS
+*********
+
+heroku --version            --  check if you have heroku cli in your cmd.
+heroku login                --  connect to heroku server for changes.
+heroku ps -a APPNAME        --  gives dyno info - how many hours left/used.
+heroku ps:scale -a APPNAME  --  gives which dynos are availble for the app and their status. ( dyno = resources, for example, web dyno = http requests).
+heroku info -a APPNAME      --  gives APP info.
+heroku maintenance -a APPNAME -- gives maintenance status.
+heroku maintenance:on/off -a APPNAME -- turn maintenance on/off.
+heroku ps:scale DYNONAME =0 -a APPNAME -- turn specific dyno on/off.
+
