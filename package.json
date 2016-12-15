@@ -5,6 +5,7 @@
     "start":"node ./bin/www",
     "deploy": "app.js"
   },
+  "compile" : "com.android.volley:volley:1.0.0",
 
   "engines": {
     "node": ">= 0.6.0",

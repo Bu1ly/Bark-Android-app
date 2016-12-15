@@ -4,20 +4,39 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var http = require('http');
-
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+
+var router = express.Router();
 var app = express();
+
+var mongoose = require('mongoose');// DB connections
+
+  // -- Connect to DB --
+
+  var connection = mongoose.createConnection('mongodb://danny:danivolp89@ds049624.mlab.com:49624/ein_prat',function (error) {
+      console.log("Trying to connect to the Mlab DB....\n");
+
+      if(error){
+          console.log("Warning! Error occurred!\n\n");
+          console.log(error.name, "<- Is the error name\n", error.message , "<- Is the error message");
+      }
+      else{
+          console.log("App is now connected to Mlab DB");
+      }
+  });
+
+  module.exports = connection;   //if i want to use DB in other files;
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,6 +45,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+//app.use('/abc',abc);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
