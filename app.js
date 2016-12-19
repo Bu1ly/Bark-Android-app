@@ -16,7 +16,7 @@ var mongoose = require('mongoose');// DB connections
 
   // -- Connect to DB --
 
-  var connection = mongoose.createConnection('mongodb://danny:danivolp89@ds049624.mlab.com:49624/ein_prat',function (error) {
+  var connection = mongoose.createConnection('mongodb://Bu1ly:danivolp@ds135798.mlab.com:35798/bark',function (error) {
       console.log("Trying to connect to the Mlab DB....\n");
 
       if(error){
