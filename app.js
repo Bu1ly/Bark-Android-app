@@ -1,4 +1,5 @@
 var express = require('express');
+var app = express();
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -9,26 +10,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 
-var router = express.Router();
-var app = express();
-
-var mongoose = require('mongoose');// DB connections
-
-  // -- Connect to DB --
-
-  var connection = mongoose.createConnection('mongodb://Bu1ly:danivolp@ds135798.mlab.com:35798/bark',function (error) {
-      console.log("Trying to connect to the Mlab DB....\n");
-
-      if(error){
-          console.log("Warning! Error occurred!\n\n");
-          console.log(error.name, "<- Is the error name\n", error.message , "<- Is the error message");
-      }
-      else{
-          console.log("App is now connected to Mlab DB");
-      }
-  });
-
-  module.exports = connection;   //if i want to use DB in other files;
+var connectDB = require('./Server/mongoConnect');
 
 
 // view engine setup
@@ -45,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-//app.use('/abc',abc);
+//app.use('/',connectDB);
 
 
 // catch 404 and forward to error handler
