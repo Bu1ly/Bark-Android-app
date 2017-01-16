@@ -50,3 +50,20 @@ module.exports.createUser = function (newUser, callback) {
         });
     });
 };
+
+module.exports.getUserByUserName = function (username, callback) {
+    var query = {username: ownerName};
+    user.findOne(query, callback);
+};
+
+module.exports.getUserById = function (username, callback){
+    User.findById(id, callback);
+};
+
+module.exports.comparePassword = function(suggestedPassword, hash, callback){
+    bcrypt.compare(suggestedPassword, hash, function (err, isMatch) {
+        if (err)
+            throw err;
+        callback(null, isMatch);
+    });
+};
