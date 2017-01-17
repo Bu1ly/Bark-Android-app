@@ -27,7 +27,7 @@ router.post('/',jsonObj , function(req, res){
     // create new DB instance
     var newUser = new user(userJason);
 
-    console.log("The jSON obj before saving is: " + userJason.toSource());
+    console.log("The jSON obj before saving is: %j" + userJason);
     // save the newSenior to the DB
     user.createUser(newUser, function (err, user) {
         if (err){
