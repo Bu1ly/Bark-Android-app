@@ -135,7 +135,7 @@ public class register extends AppCompatActivity {
 
                    Map<String, String> params = new HashMap();
                    params.put("dogName", name);
-                   params.put("gender",email);
+                   params.put("email",email);
                    params.put("age",username);
                    params.put("ownerName",password);
                    params.put("sis",password);

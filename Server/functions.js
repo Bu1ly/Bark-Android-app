@@ -27,15 +27,21 @@ router.post('/',jsonObj , function(req, res){
     // create new DB instance
     var newUser = new user(userJason);
 
-    console.log("The jSON obj before saving is: %j" + userJason);
+   // console.log("The jSON obj before saving is: %j" + newUser.toString());
+
+
     // save the newSenior to the DB
     user.createUser(newUser, function (err, user) {
         if (err){
             res.status(500).end("Error");
             console.log(user);
         }
-        else
+        else {
+
             res.status(200).end("Added" + userJason + "to Users DB");
+
+
+        }
     });
 });
 
@@ -68,9 +74,10 @@ passport.use(new localStrategy(
         });
     }));
 
-router.post('/',passport.authenticate('local', {successRedirect:'/', failureRedirect:'/', failureFlash: false}),
+router.post('/login',passport.authenticate('local', {successRedirect:'/', failureRedirect:'/', failureFlash: false}),
     function (req,res) {
-        console.log("")
+        res.status(200).end("LOgin OK");
+        console.log("LOGIN IS OK!");
 });
 
 module.exports = router;
