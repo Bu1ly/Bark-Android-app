@@ -11,7 +11,8 @@ var user = require('./mongoConnect');
 
 router.post('/',jsonObj , function(req, res){
     console.log("Hey, new User  registration...");
-    var registerData = JSON.parse(JSON.stringify(req.body)); // get the user data as Json
+    var registerData = req.body;
+        //JSON.parse(JSON.stringify(req.body)); // get the user data as Json
 
 // create user object and take the data according to User Schema
     var userJason ={
@@ -26,6 +27,7 @@ router.post('/',jsonObj , function(req, res){
     // create new DB instance
     var newUser = new user(userJason);
 
+    console.log("The jSON obj before saving is: " + userJason.toSource());
     // save the newSenior to the DB
     user.createUser(newUser, function (err, user) {
         if (err){
@@ -33,7 +35,7 @@ router.post('/',jsonObj , function(req, res){
             console.log(user);
         }
         else
-            res.status(200).end("Added", userJason, "to Users DB");
+            res.status(200).end("Added" + userJason + "to Users DB");
     });
 });
 
@@ -66,9 +68,9 @@ passport.use(new localStrategy(
         });
     }));
 
-router.post('/login',passport.authenticate('local', {successRedirect:'/', failureRedirect:'/', failureFlash: false}),
+router.post('/',passport.authenticate('local', {successRedirect:'/', failureRedirect:'/', failureFlash: false}),
     function (req,res) {
-        res.redirect('/');
+        console.log("")
 });
 
 module.exports = router;
