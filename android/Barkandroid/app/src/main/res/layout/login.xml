@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:paddingTop="56dp"
     android:paddingLeft="24dp"
-    android:paddingRight="24dp">
+    android:paddingRight="24dp"
+    >
 
     <ImageView android:src="@mipmap/ic_logo"
         android:layout_width="wrap_content"
@@ -52,6 +53,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:text="No account yet? Create one"
+        android:gravity="center"
+        android:textSize="16dip"/>
+
+    <TextView android:id="@+id/temp_link_to_map"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="Temp to Map"
         android:gravity="center"
         android:textSize="16dip"/>
 

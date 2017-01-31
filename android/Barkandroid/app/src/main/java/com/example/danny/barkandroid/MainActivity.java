@@ -12,8 +12,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     Button login_bn;
     EditText Email, Password;
     String email,password;
-    TextView link_to_singup;
+    TextView link_to_singup ,_temp_link_to_map;
     AlertDialog.Builder builder;
     String reg_url ="http://192.168.43.192:8080/register";
 
@@ -44,10 +47,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+
         login_bn = (Button)findViewById(R.id.btn_login);
         Email=(EditText)findViewById(R.id.input_email);
         Password = (EditText)findViewById(R.id.input_password);
         link_to_singup=(TextView)findViewById(R.id.link_signup);
+        _temp_link_to_map=(TextView)findViewById(R.id.temp_link_to_map);
+
 
         builder = new AlertDialog.Builder(this);
 
@@ -65,7 +72,18 @@ public class MainActivity extends AppCompatActivity {
 
             public void onClick(View v)
             {
-                startActivity(new Intent(MainActivity.this,register.class));
+                startActivity(new Intent(MainActivity.this,register.class)); //register.class
+            }
+
+        });
+
+        ///////////////
+        _temp_link_to_map.setOnClickListener(new View.OnClickListener()
+        {
+
+            public void onClick(View v)
+            {
+                startActivity(new Intent(MainActivity.this,MapsActivity.class));
             }
 
         });

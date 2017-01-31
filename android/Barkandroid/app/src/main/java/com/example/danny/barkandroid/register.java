@@ -10,8 +10,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -30,21 +35,28 @@ import java.util.Map;
 public class register extends AppCompatActivity {
 
     Button reg_bn;
-    EditText Name, Email, UserName,Password,ConfimPassword;
-    String name,email,username,password,confimpassword;
+    EditText Name, Email, UserName,Password,ConfimPassword , DogType;
+    TextView link_login_btn;
+    String name,email,username,password,confimpassword , Sex ,dogtype;
+    RadioGroup radioSexGroup;
+    RadioButton radioSexButton;
     AlertDialog.Builder builder;
     String reg_url ="http://192.168.43.192:8080/register";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_register);
         reg_bn = (Button)findViewById(R.id.btn_signup);
-        Name = (EditText)findViewById(R.id.input_name);
+        //Name = (EditText)findViewById(R.id.input_name);
         Email=(EditText)findViewById(R.id.input_email);
         UserName = (EditText)findViewById(R.id.input_username);
         Password = (EditText)findViewById(R.id.input_password);
         ConfimPassword = (EditText)findViewById(R.id.confim_password);
+        DogType =(EditText)findViewById(R.id.input_type);
+        radioSexGroup = (RadioGroup) findViewById(R.id.radioSex);
+        link_login_btn=(TextView)findViewById(R.id.link_login);
         builder = new AlertDialog.Builder(register.this);
 
 //        final int REQUEST_CODE_ASK_PERMISSIONS = 123;
@@ -52,21 +64,37 @@ public class register extends AppCompatActivity {
 
 
 
+        link_login_btn.setOnClickListener(new View.OnClickListener()
+        {
+
+            public void onClick(View v)
+            {
+                finish(); ///close the Activity & come back to login activity
+            }
+
+        });
+
+
         reg_bn.setOnClickListener(new View.OnClickListener()
         {
            public void onClick(View v)
            {
-               name = Name.getText().toString();
+              // name = Name.getText().toString();
                email = Email.getText().toString();
                username = UserName.getText().toString();
                password = Password.getText().toString();
                confimpassword = ConfimPassword.getText().toString();
+               dogtype = DogType.getText().toString();
+
+               int selectedId = radioSexGroup.getCheckedRadioButtonId();
+               radioSexButton = (RadioButton) findViewById(selectedId);
+                Sex = radioSexButton.getText().toString();
 
                if(ContextCompat.checkSelfPermission(getBaseContext(), "android.permission.INTERNET") == PackageManager.PERMISSION_GRANTED) {
 
 
 
-               if(name.equals("") ||email.equals("")||username.equals("")||password.equals("")||confimpassword.equals(""))
+               if(email.equals("")||username.equals("")||password.equals("")||confimpassword.equals("")||dogtype.equals(""))
                {
                    builder.setTitle("Something went wrong....");
                    builder.setMessage("please fill all the fields...");
@@ -132,13 +160,15 @@ public class register extends AppCompatActivity {
 //                   System.out.println("Send Register Data to DB");
 //
 //                   ////////////////
+                    /// in db  : dogName, gender, age, ownerName, email, sis
 
                    Map<String, String> params = new HashMap();
-                   params.put("dogName", name);
-                   params.put("email",email);
-                   params.put("age",username);
-                   params.put("ownerName",password);
-                   params.put("sis",password);
+
+                   params.put("ownerName",username); //userName - ownerName (db)
+                   params.put("email",email); // email - email (db)
+                   params.put("sis",password); // password - sis (db)
+                   params.put("dogName",dogtype); // dog type - connect on db with "dogname"
+                   params.put("gender",Sex); // gender dog - gender (db)
 
                    JSONObject parameters = new JSONObject(params);
                     System.out.println("JSONObject: ----------   " + parameters.toString());
@@ -209,7 +239,7 @@ public class register extends AppCompatActivity {
                 }
                 else if(code.equals("reg_failed"))
                 {
-                    Name.setText("");
+                   // Name.setText("");
                     Email.setText("");
                     UserName.setText("");
                     Password.setText("");
