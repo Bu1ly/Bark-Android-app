@@ -25,20 +25,30 @@ var connect = mongoose.createConnection(address,function (error) {
 });
 
 
-// -- Create user schema and export-- //
+// -- Create  schemas and export-- //
 var user = new Schema({
     dogName: String,
     gender: String,
     age: String,
     ownerName: String,
-    sis: String,
-    session : String
+    email: String,
+    sis: String
+
 });
+
+var coordinates = new Schema({
+    coordX: String,
+    coordY: String
+
+    });
+
+
 
 /// -- Connect collections to schema  -- ///
 
 
 var User = module.exports = connect.model('usersDB', user);
+//var Coordinates = module.exports = connect.model('usersCoord',coordinates);
 
 /// -- Export -- ///
 
@@ -52,8 +62,8 @@ module.exports.createUser = function (newUser, callback) {
 };
 
 module.exports.getUserByUserName = function (username, callback) {
-    var query = {username: ownerName};
-    user.findOne(query, callback);
+    var query = {username: user.ownerName};
+    User.findOne(query, callback);
 };
 
 module.exports.getUserById = function (username, callback){
@@ -67,3 +77,5 @@ module.exports.comparePassword = function(suggestedPassword, hash, callback){
         callback(null, isMatch);
     });
 };
+
+

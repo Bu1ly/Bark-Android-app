@@ -2,14 +2,16 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var router = express.Router();
-var passport = require('passport');
-var localStrategy = require('passport-local').Strategy;
 var jsonObj = bodyParser.json();
 var user = require('./mongoConnect');
+var passport = require('./passportInit');
 
+router.post('/',function (req,res) {
+    console.log("IM IN / path");
+    res.status(200).end("/ Path is OK");
+});
 
-
-router.post('/',jsonObj , function(req, res){
+router.post('/register',jsonObj , function(req, res){
     console.log("Hey, new User  registration...");
     var registerData = req.body;
         //JSON.parse(JSON.stringify(req.body)); // get the user data as Json
@@ -20,6 +22,7 @@ router.post('/',jsonObj , function(req, res){
         gender : registerData.gender,
         age : registerData.age,
         ownerName: registerData.ownerName,
+        email: registerData.email,
         sis: registerData.sis
 
     };
@@ -37,47 +40,51 @@ router.post('/',jsonObj , function(req, res){
             console.log(user);
         }
         else {
-
             res.status(200).end("Added" + userJason + "to Users DB");
-
-
         }
     });
 });
 
-passport.serializeUser(function (user, done) {
-    done(null, user.id)
-});
 
-passport.deserializeUser(function (id, done) {
-    User.getUserByid(id, function (err, user) {
-        done(err, user);
-    });
-});
 
-passport.use(new localStrategy(
-    function (username, password, done) {
-        User.getUserByUsername(username, function (err, user) {
-            if(err) throw  err;
-            if(!user){
-                return done(null, false, {message: 'Unknown User' });
-            }
+/*router.post('/login',jsonObj , function(req, res){
+    console.log("Hey, Login");
+    var registerData = req.body;
+    console.log("Hey, Login " +JSON.parse(JSON.stringify(req.body)).toString());
+    //JSON.parse(JSON.stringify(req.body)); // get the user data as Json
 
-            User.comparePassword(sis, user.sis, function (err, isMatch) {
-                if(err)
-                    throw err;
-                if(isMatch)
-                    return done(null, user);
-                else
-                    return done(null, false, {message: 'Invalid password'});
-            });
-        });
-    }));
+    res.status(200).end("LOgin OK");
+});*/
 
-router.post('/login',passport.authenticate('local', {successRedirect:'/', failureRedirect:'/', failureFlash: false}),
-    function (req,res) {
-        res.status(200).end("LOgin OK");
-        console.log("LOGIN IS OK!");
+
+
+router.post('/login',passport.authenticate('local', {session : false}), function (req,res) {
+
+    /*passport.authenticate('local', {session : false});*/
+    console.log("LOGIN IS Done!");
+    var registerData = req.body;
+    var data = jsonObj;
+
+    var stringify = JSON.stringify(data);
+
+    // create senior object and take the data according to Senior Schema
+    var userJason = {
+            dogName :registerData.dogName ,
+            gender :registerData.gender,
+            age : registerData.age,
+            ownerName: registerData.ownerName,
+            email: registerData.email,
+            sis:registerData.sis
+    };
+    var pretty = JSON.stringify(userJason);
+
+
+
+    console.log("this is pretty " + pretty);
+    console.log("this is stringify " + stringify);
+
+    res.status(200).end(pretty);
+
 });
 
 module.exports = router;

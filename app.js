@@ -12,7 +12,8 @@ var passport = require('passport');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var register = require('./Server/functions');// Routing for functions
+var functions = require('./Server/functions');// Routing for functions
+var login = require('./Server/functions');
 var connectDB = require('./Server/mongoConnect');// Mongo DB connection
 
 
@@ -24,13 +25,15 @@ var connectDB = require('./Server/mongoConnect');// Mongo DB connection
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
-app.use('/register',register);
+app.use('/', functions);
+//app.use('/users', users);
+//app.use('/register',functions);
+//app.use('/login',login);
 
 
 /// -- Middleware Express session

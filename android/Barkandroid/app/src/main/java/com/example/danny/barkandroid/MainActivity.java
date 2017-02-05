@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     String email,password;
     TextView link_to_singup ,_temp_link_to_map;
     AlertDialog.Builder builder;
-    String reg_url ="http://192.168.43.192:8080/register";
+    String reg_url ="http://192.168.43.192:8080/login";
 
 
 
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject parameters = new JSONObject(params);
 
                         JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                                (Request.Method.GET, reg_url, parameters, new Response.Listener<JSONObject>() {
+                                (Request.Method.POST, reg_url, parameters, new Response.Listener<JSONObject>() {
 
                                     @Override
                                     public void onResponse(JSONObject response) {
