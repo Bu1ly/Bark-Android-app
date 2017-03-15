@@ -76,14 +76,14 @@ router.post('/login',passport.authenticate('local', {session : false}), function
             email: registerData.email,
             sis:registerData.sis
     };
-    var pretty = JSON.stringify(userJason);
+    var newUser = new user(userJason);
 
 
 
     console.log("this is pretty " + pretty);
 
 
-    res.status(200).json(userJason);
+    res.status(200).json(newUser);
 
 });
 
