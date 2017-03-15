@@ -81,9 +81,9 @@ router.post('/login',passport.authenticate('local', {session : false}), function
 
 
     console.log("this is pretty " + pretty);
-    console.log("this is stringify " + stringify);
 
-    res.status(200).end(pretty);
+
+    res.status(200).json(pretty);
 
 });
 
