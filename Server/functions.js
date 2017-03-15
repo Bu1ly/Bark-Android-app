@@ -41,7 +41,7 @@ router.post('/register',jsonObj , function(req, res){
         }
         else {
             var pretty = JSON.stringify(userJason);
-            res.status(200).json(pretty);
+            res.status(200).json(newUser);
         }
     });
 });
