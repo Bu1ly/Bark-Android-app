@@ -40,7 +40,6 @@ router.post('/register',jsonObj , function(req, res){
             console.log(user);
         }
         else {
-            var pretty = JSON.stringify(userJason);
             res.status(200).json(newUser);
         }
     });
@@ -84,7 +83,7 @@ router.post('/login',passport.authenticate('local', {session : false}), function
     console.log("this is pretty " + pretty);
 
 
-    res.status(200).json(pretty);
+    res.status(200).json(userJason);
 
 });
 
