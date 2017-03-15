@@ -31,24 +31,17 @@ var user = new Schema({
     gender: String,
     age: String,
     ownerName: String,
+    coordX: String,
+    coordY: String,
     email: String,
     sis: String
 
 });
 
-var coordinates = new Schema({
-    coordX: String,
-    coordY: String
-
-    });
-
-
-
 /// -- Connect collections to schema  -- ///
 
 
 var User = module.exports = connect.model('usersDB', user);
-//var Coordinates = module.exports = connect.model('usersCoord',coordinates);
 
 /// -- Export -- ///
 
@@ -62,7 +55,7 @@ module.exports.createUser = function (newUser, callback) {
 };
 
 module.exports.getUserByUserName = function (username, callback) {
-    var query = {username: user.ownerName};
+    var query = {username: User.email};
     User.findOne(query, callback);
 };
 
