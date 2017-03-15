@@ -40,7 +40,8 @@ router.post('/register',jsonObj , function(req, res){
             console.log(user);
         }
         else {
-            res.status(200).end("Added" + userJason + "to Users DB");
+            var pretty = JSON.stringify(userJason);
+            res.status(200).json(pretty);
         }
     });
 });
