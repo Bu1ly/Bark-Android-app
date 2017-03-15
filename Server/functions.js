@@ -80,7 +80,7 @@ router.post('/login',passport.authenticate('local', {session : false}), function
 
 
 
-    console.log("this is pretty " + pretty);
+//    console.log("this is pretty " + pretty);
 
 
     res.status(200).json(newUser);
