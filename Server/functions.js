@@ -3,8 +3,9 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var router = express.Router();
 var jsonObj = bodyParser.json();
-var user = require('./mongoConnect');
+var User = require('./mongoConnect');
 var passport = require('./passportInit');
+
 
 router.post('/',function (req,res) {
     console.log("IM IN / path");
@@ -23,49 +24,41 @@ router.post('/register',jsonObj , function(req, res){
         age : registerData.age,
         ownerName: registerData.ownerName,
         email: registerData.email,
-        sis: registerData.sis
-
+        sis: registerData.sis,
+        coordX: registerData.coordX,
+        coordY: registerData.coordY
     };
 
+
     // create new DB instance
-    var newUser = new user(userJason);
+    var newUser = new User(userJason);
 
    // console.log("The jSON obj before saving is: %j" + newUser.toString());
 
-
+    console.log("BEFORE1");
     // save the newSenior to the DB
-    user.createUser(newUser, function (err, user) {
+    User.createUser(newUser, function (err, user) {
         if (err){
             res.status(500).end("Error");
             console.log(user);
         }
         else {
+            //res.message('User is now registered!');
             res.status(200).json(newUser);
         }
     });
+    console.log("Finish");
 });
 
 
 
-/*router.post('/login',jsonObj , function(req, res){
-    console.log("Hey, Login");
-    var registerData = req.body;
-    console.log("Hey, Login " +JSON.parse(JSON.stringify(req.body)).toString());
-    //JSON.parse(JSON.stringify(req.body)); // get the user data as Json
 
-    res.status(200).end("LOgin OK");
-});*/
+router.post('/login',passport.authenticate('local'), function (req,res) {
 
 
-
-router.post('/login',passport.authenticate('local', {session : false}), function (req,res) {
-
-    /*passport.authenticate('local', {session : false});*/
     console.log("LOGIN IS Done!");
     var registerData = req.body;
-    var data = jsonObj;
 
-    var stringify = JSON.stringify(data);
 
     // create senior object and take the data according to Senior Schema
     var userJason = {
@@ -76,14 +69,11 @@ router.post('/login',passport.authenticate('local', {session : false}), function
             email: registerData.email,
             sis:registerData.sis
     };
-    var newUser = new user(userJason);
-
-
-
+    var stringify = JSON.stringify(userJason);
 //    console.log("this is pretty " + pretty);
 
 
-    res.status(200).json(newUser);
+    res.status(200).json(stringify);
 
 });
 

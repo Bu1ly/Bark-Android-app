@@ -6,24 +6,6 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 var Schema = mongoose.Schema;
 
-//config strings
-var cfg = require('./cfg');
-var address = cfg.mongoUrl;
-
-
-/// -- MONGODB CONNECTION -- ///
-
-var connect = mongoose.createConnection(address,function (error) {
-    console.log("Trying to connect to the Mlab DB....\n");
-    if(error){
-        console.log("Warning! Error occurred!\n\n");
-        console.log(error.name, "<- Is the error name\n", error.message , "<- Is the error message");
-    }
-    else{
-        console.log("App is now connected to Mlab DB");
-    }
-});
-
 
 // -- Create  schemas and export-- //
 var user = new Schema({
@@ -31,17 +13,16 @@ var user = new Schema({
     gender: String,
     age: String,
     ownerName: String,
-    coordX: String,
-    coordY: String,
     email: String,
-    sis: String
+    sis: String,
+    coordX: String,
+    coordY: String
 
 });
 
 /// -- Connect collections to schema  -- ///
 
-
-var User = module.exports = connect.model('usersDB', user);
+var User = module.exports = mongoose.model('usersDB', user);
 
 /// -- Export -- ///
 
@@ -54,19 +35,26 @@ module.exports.createUser = function (newUser, callback) {
     });
 };
 
+module.exports.getUsersList = function(callback) {
+    var query = {};
+    User.find(query, callback);
+};
+
 module.exports.getUserByUserName = function (username, callback) {
-    var query = {username: User.email};
+    var query = {username: username};
     User.findOne(query, callback);
 };
 
-module.exports.getUserById = function (username, callback){
+module.exports.getUserById = function (id, callback){
+    console.log("BEFORE");
     User.findById(id, callback);
+    console.log("BEFORE");
 };
 
 module.exports.comparePassword = function(suggestedPassword, hash, callback){
     bcrypt.compare(suggestedPassword, hash, function (err, isMatch) {
         if (err)
-            throw err;
+            console.log(err);
         callback(null, isMatch);
     });
 };

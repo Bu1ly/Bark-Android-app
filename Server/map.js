@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var User = require('./mongoConnect');
+var mongoose = require('mongoose');
 var router = express.Router();
 
 router.get('/getAllCoords',function (req, res) {
