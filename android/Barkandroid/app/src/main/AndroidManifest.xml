@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".LogIn"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,6 +52,11 @@
         <activity
             android:name=".Setting_Activity"
             android:label="@string/title_activity_setting_"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".menu_grid" />
+        <activity
+            android:name=".menuNavigation"
+            android:label="@string/title_activity_menu_navigation"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
