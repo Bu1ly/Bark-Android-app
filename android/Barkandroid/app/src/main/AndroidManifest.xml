@@ -49,10 +49,6 @@
         <activity
             android:name=".menu"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name=".Setting_Activity"
-            android:label="@string/title_activity_setting_"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".menu_grid" />
         <activity
             android:name=".menuNavigation"
