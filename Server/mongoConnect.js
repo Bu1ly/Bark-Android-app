@@ -1,6 +1,4 @@
-/**
- * Created by Danny on 26-Dec-16.
- */
+
 
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
