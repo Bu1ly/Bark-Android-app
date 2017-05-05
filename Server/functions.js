@@ -77,4 +77,33 @@ router.post('/login',passport.authenticate('local'), function (req,res) {
 
 });
 
+// --Add information of the Users to the DB--
+router.post('/change_info', function(req,res){
+
+    // get the _objId form the user
+    var updateID = req.body.identity; // get the user data
+    var updateInfo = req.body;
+    console.log('ID:', updateID); // print for debug
+
+    User.findOneAndUpdate({identity:updateID}, {$set:{
+                            dogName: updateInfo.dogName,
+                            gender: updateInfo.gender,
+                            age: updateInfo.age,
+                            ownerName: updateInfo.ownerName,
+                            email: updateInfo.email,
+                           coordX: updateInfo.coordX,
+                            coordY: updateInfo.coordY,
+                        }}, function(err,upObj){
+                            if (err) {
+                                console.log('Data update failed!');
+                                res.status(500).end("Error, user not in DB");
+                                }
+                                console.log('Data updated: ',upObj);
+                                res.status(200).end("OK, changed info");
+
+                            }
+    );
+
+});
+
 module.exports = router;
