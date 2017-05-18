@@ -11,6 +11,7 @@
     "npm": ">= 1.0.0 "
   },
   "dependencies": {
+    "geolib":"*",
     "bcryptjs": "*",
     "body-parser": "~1.15.2",
     "connect-flash": "*",
