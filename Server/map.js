@@ -56,6 +56,11 @@ var pointInCircle = function (x, y, Cx, Cy, radius) {
     return distancesquared <= radius * radius;
 };
 
+function pointInCircle(point, radius, center)
+{
+    return (google.maps.geometry.spherical.computeDistanceBetween(point, center) <= radius)
+}
+
 
 
 
