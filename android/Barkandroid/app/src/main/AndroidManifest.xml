@@ -49,11 +49,14 @@
         <activity
             android:name=".menu"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".menu_grid" />
+        <activity android:name=".menu_grid" android:screenOrientation="portrait"/>
         <activity
             android:name=".menuNavigation"
             android:label="@string/title_activity_menu_navigation"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".Profile"
+            ></activity>
     </application>
 
 </manifest>
