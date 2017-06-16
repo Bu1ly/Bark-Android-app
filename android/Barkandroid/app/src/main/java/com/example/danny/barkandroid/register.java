@@ -199,7 +199,7 @@ public class register extends AppCompatActivity {
                                    System.out.println("Response: " + response.toString());
 
                                    AlertDialog alertDialog = new AlertDialog.Builder(register.this).create();
-                                   alertDialog.setTitle("Alert");
+                                   alertDialog.setTitle("");
                                    alertDialog.setMessage("Account Created ");
                                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                            new DialogInterface.OnClickListener() {

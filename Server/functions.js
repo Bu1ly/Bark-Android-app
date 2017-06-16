@@ -83,6 +83,8 @@ router.post('/login',passport.authenticate('local'), function (req,res) {
             _id:data._id       // Send _id in response as it is required in other API's
         };
         var stringify = JSON.stringify(userJason);
+
+        /// added By ASSAF - covert the string to JsonObject
         res.status(200).json(JSON.parse(stringify));
     });
 });
