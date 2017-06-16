@@ -302,7 +302,7 @@ router.post('/removeLostDog', function(req,res){
                 res.status(500).end("Data cannot be saved.");
             }
             else{
-                res.status(200).end("Entry Removed");
+                res.status(200).end("EnKtry Removed");
             }
         }
     );
