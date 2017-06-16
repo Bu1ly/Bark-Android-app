@@ -11,22 +11,32 @@
     "npm": ">= 1.0.0 "
   },
   "dependencies": {
-    "geolib":"*",
+    "async": "^2.4.1",
     "bcryptjs": "*",
     "body-parser": "~1.15.2",
+    "connect-ensure-login": "^0.1.1",
     "connect-flash": "*",
+    "consolidate": "^0.14.5",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "ejs": "0.8.x",
     "express": "~4.14.0",
     "express-session": "^1.14.2",
+    "express-validator": "^3.2.0",
+    "fs": "0.0.1-security",
+    "geodist": "^0.2.1",
+    "geolib": "*",
     "jade": "~1.11.0",
+    "mime": "^1.3.6",
     "mongoose": "^4.7.7",
     "morgan": "~1.7.0",
+    "multer": "^1.3.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "path": "^0.12.7",
     "serve-favicon": "~2.3.0",
-    "typescript": "^2.2.2"
+    "typescript": "^2.2.2",
+    "uid2": "0.0.3"
   },
   "private": true
 }

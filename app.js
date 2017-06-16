@@ -17,16 +17,18 @@ var flash = require('connect-flash');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var functions = require('./Server/functions');// Routing for functions
-
+var engines = require('consolidate');
 //config strings
-var cfg = require('./server/cfg');
+var cfg = require('./Server/cfg');
 var address = cfg.mongoUrl;
 
+var multer  = require('multer');
+var upload = multer({ dest: 'uploads/' });
 
 
 /// -- MONGODB CONNECTION -- ///
 
-var connect = mongoose.createConnection(address,function (error) {
+var connect = mongoose.connect(address,function (error) {
     console.log("Trying to connect to the Mlab DB....\n");
     if(error){
         console.log("Warning! Error occurred!\n\n");
@@ -38,12 +40,14 @@ var connect = mongoose.createConnection(address,function (error) {
 });
 
 var app = express();
-
+app.listen(8000);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));//static files folder.
+app.use(express.static(path.join(__dirname, 'public')));//static files folder.var engines = require('consolidate');
 
+
+app.set('view engine', 'jade');
 
 // -- Middleware Express session
 app.use(session({
@@ -97,7 +101,7 @@ app.use(expressValidator({
 app.use(logger('dev'));
 
 
-app.use('/', functions);
+app.use('/',functions);
 
 
 

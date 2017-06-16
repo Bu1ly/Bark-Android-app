@@ -3,8 +3,8 @@
  */
 
 var mongoose = require('mongoose');
-var bcrypt = require('bcryptjs');
-var Schema = mongoose.Schema;
+
+var Schema = new mongoose.Schema;
 
 
 // -- Create  schemas and export-- //
@@ -13,12 +13,12 @@ var lost = new Schema({
     gender: String,
     age: String,
     ownerName: String,
-    phone : String,
-    photo : String,
-    photoBase64 : String,
-    photoExt : String
+    phone : String
 });
 
 /// -- Connect collections to schema  -- ///
 
-var lostDog = module.exports = mongoose.model('lostDog', lost);
+var lostDog = mongoose.model('lostD', lost);
+
+module.exports.lostDog = lostDog;
+

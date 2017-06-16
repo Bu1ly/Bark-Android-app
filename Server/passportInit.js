@@ -17,7 +17,7 @@
         });
     });
 
-    passport.use('local', new LocalStrategy({usernameField: 'ownerName', passwordField: 'sis'},
+    passport.use('local', new LocalStrategy({usernameField: 'email', passwordField: 'sis'},
         function (username, password, done) {
             User.getUserByUserName(username, function (err, user) {
                 if (err) {
@@ -32,11 +32,11 @@
 
                 User.comparePassword(password, user.sis, function (err, isMatch) {
                     if (err) {
-                        console.log("Wrong Password!\n")
+                        console.log("Wrong Password!\n");
                         throw err;
                     }
                     if (isMatch) {
-                        console.log("Found a matching password!\n");
+                        console.log("Found a matching password!\n",user);
                         return done(null, user);
                     }
                     else

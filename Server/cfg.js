@@ -4,7 +4,7 @@
 
 module.exports = {
 
-    mongoUrl : 'mongodb://Bu1ly:danivolp@ds135798.mlab.com:35798/bark',
+    mongoUrl : 'mongodb://localhost:bark',
     herokuUrl : ''
 
 };

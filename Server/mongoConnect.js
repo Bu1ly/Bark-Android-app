@@ -39,7 +39,7 @@ module.exports.getUsersList = function(callback) {
 };
 
 module.exports.getUserByUserName = function (username, callback) {
-    var query = {username: username};
+    var query = {email: username};
     User.findOne(query, callback);
 };
 
