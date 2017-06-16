@@ -41,6 +41,7 @@ var connect = mongoose.connect(address,function (error) {
 
 var app = express();
 app.listen(8000);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());

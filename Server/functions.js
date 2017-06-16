@@ -41,6 +41,7 @@ router.post('/',function (req,res) {
 * */
 
 router.post('/register',jsonObj , function(req, res){
+    console.log("DEBUGGG");
     var registerData = req.body;
     var userJason = {
         dogName : registerData.dogName,
@@ -82,7 +83,7 @@ router.post('/login',passport.authenticate('local'), function (req,res) {
             _id:data._id       // Send _id in response as it is required in other API's
         };
         var stringify = JSON.stringify(userJason);
-        res.status(200).json(stringify);
+        res.status(200).json(JSON.parse(stringify));
     });
 });
 

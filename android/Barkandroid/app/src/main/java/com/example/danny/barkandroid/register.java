@@ -41,7 +41,9 @@ public class register extends AppCompatActivity {
     RadioGroup radioSexGroup;
     RadioButton radioSexButton;
     AlertDialog.Builder builder;
-    String reg_url ="http://192.168.43.192:8080/register";
+   // String reg_url ="http://10.0.2.2:8000/register";
+
+    String reg_url ="http://192.168.1.23:8000/register";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,7 +170,23 @@ public class register extends AppCompatActivity {
                    params.put("email",email); // email - email (db)
                    params.put("sis",password); // password - sis (db)
                    params.put("dogName",dogtype); // dog type - connect on db with "dogname"
-                   params.put("gender",Sex); // gender dog - gender (db)
+                   params.put("gender",Sex); // gender dog - gender (db)v
+
+
+                                       /* User Register API
+                    * Method : POST
+                    * payload : {
+                    *       dogName     : "",
+                    *       gender      : "",
+                    *       age         : "",
+                    *       ownerName   : "",
+                    *       email       : "",
+                    *       sis         : "",
+                    *       coordX      : "",
+                    *       coordY      : ""
+                    * }
+                    * Passport Authentication : false
+                    * */
 
                    JSONObject parameters = new JSONObject(params);
                     System.out.println("JSONObject: ----------   " + parameters.toString());
