@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_menu_grid"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.danny.barkandroid.menu_grid">
+
+    <TextView
+        android:text="Profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:id="@+id/textView5"
+        android:textAlignment="textStart"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="casual"
+        android:textStyle="normal|bold"
+        android:layout_marginEnd="49dp"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/imageMap" />
+
+    <ImageView
+        android:layout_width="450px"
+        android:layout_height="450px"
+        app:srcCompat="@mipmap/profile_dog_icon"
+        android:id="@+id/ImageProfile"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="450px"
+        android:layout_height="450px"
+        app:srcCompat="@mipmap/map_dog_icon"
+        android:id="@+id/imageMap"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/imageView7" />
+
+    <ImageView
+        android:layout_width="450px"
+        android:layout_height="450px"
+        app:srcCompat="@mipmap/search_dogs_icon"
+        android:id="@+id/imageView6"
+        android:layout_below="@+id/ImageProfile"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="450px"
+        android:layout_height="450px"
+        app:srcCompat="@mipmap/vaccines_dog_icon"
+        android:id="@+id/imageView5"
+        android:layout_below="@+id/ImageProfile"
+        android:layout_toEndOf="@+id/imageView6" />
+
+    <TextView
+        android:text="Walk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:id="@+id/textView8"
+        android:textAlignment="textStart"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="casual"
+        android:textStyle="normal|bold"
+        android:layout_below="@+id/imageView6"
+        android:layout_alignStart="@+id/textView11" />
+
+    <ImageView
+        android:layout_width="450px"
+        android:layout_height="450px"
+        app:srcCompat="@mipmap/dog_walk_icon"
+        android:id="@+id/imageView7"
+        android:layout_below="@+id/imageView6"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Find Me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:id="@+id/textView9"
+        android:textAlignment="textStart"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="casual"
+        android:textStyle="normal|bold"
+        android:layout_alignEnd="@+id/textView7"
+        android:layout_below="@+id/imageView5" />
+
+    <TextView
+        android:text="Vaccines"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:id="@+id/textView7"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="casual"
+        android:textStyle="normal|bold"
+        android:layout_marginEnd="42dp"
+        android:layout_alignBottom="@+id/textView11"
+        android:layout_alignEnd="@+id/imageMap"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:text="Search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:id="@+id/textView11"
+        android:textAlignment="textStart"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="casual"
+        android:textStyle="normal|bold"
+        android:layout_below="@+id/ImageProfile"
+        android:layout_alignStart="@+id/textView5" />
+
+    <TextView
+        android:text="MAP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:id="@+id/textView10"
+        android:textAlignment="textStart"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="casual"
+        android:textStyle="normal|bold"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView9"
+        android:layout_marginStart="11dp" />
+
+    <ImageView
+        android:layout_width="450px"
+        android:layout_height="450px"
+        app:srcCompat="@mipmap/turnon_dog_icon"
+        android:id="@+id/imageView9"
+        android:layout_below="@+id/imageView5"
+        android:layout_toEndOf="@+id/imageView7" />
+
+</RelativeLayout>

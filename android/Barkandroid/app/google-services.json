@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "702228192205",
+    "firebase_url": "https://barkandroid-c8e97.firebaseio.com",
+    "project_id": "barkandroid-c8e97",
+    "storage_bucket": "barkandroid-c8e97.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702228192205:android:9cc9af9950414013",
+        "android_client_info": {
+          "package_name": "com.example.danny.barkandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "702228192205-uilu7j2tb71d5qh6bi1b9cji80kon8ov.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.danny.barkandroid",
+            "certificate_hash": "664aae518c066d7b2e95419fa38cb052544c51b5"
+          }
+        },
+        {
+          "client_id": "702228192205-4uhb4tneq8ovpur3q1ud92o9qi39ot8n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyCPs2aY1dXY9-CWdilSslckmvpDr6DNw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "702228192205-4uhb4tneq8ovpur3q1ud92o9qi39ot8n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
