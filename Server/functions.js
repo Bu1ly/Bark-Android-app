@@ -40,29 +40,55 @@ router.post('/',function (req,res) {
 * Passport Authentication : false
 * */
 
-router.post('/register',jsonObj , function(req, res){
-    console.log("DEBUGGG");
-    var registerData = req.body;
-    var userJason = {
-        dogName : registerData.dogName,
-        gender : registerData.gender,
-        age : registerData.age,
-        ownerName: registerData.ownerName,
-        email: registerData.email,
-        sis: registerData.sis,
-        coordX: registerData.coordX,
-        coordY: registerData.coordY
-    };
-    // create new DB instance
-    var newUser = new User(userJason);
-    User.createUser(newUser, function (err, user) {
-        if (err){
-            res.status(500).end("Error");
-        }
-        else {
-            res.status(200).json(newUser);
-        }
-    });
+router.post('/register', upload.single('photo') , function(req, res){
+    var dataToSave = req.body;
+    var newUser;
+    if(req.file){ /* If Photo is uploaded */
+        var newImg = fs.readFileSync(req.file.path);
+        // encode the file as a base64 string.
+        var encImg = newImg.toString('base64');
+        var splitName = req.file.originalname.split('.');
+        var fileNameToSave = path.dirname(process.mainModule.filename) + "/Server/photos/"+req.file.filename+"."+splitName[splitName.length - 1];
+        fs.writeFile(fileNameToSave, encImg, 'base64', function(err) {
+            fs.unlink(path.dirname(process.mainModule.filename) + "/Server/photos/"+req.file.filename);
+            dataToSave["photo"] = fileNameToSave;
+            dataToSave["photoBase64"] = encImg;
+            dataToSave["photoExt"] = splitName[splitName.length - 1];
+            //var registerData = req.body;
+            // create new DB instance
+            newUser = new User(dataToSave);
+            User.createUser(newUser, function (err, user) {
+                if (err){
+                    res.status(500).end("Error");
+                }
+                else {
+                    res.status(200).json(newUser);
+                }
+            });
+        });
+    }
+    else{
+        var userJason = {
+            dogName : dataToSave.dogName,
+            gender : dataToSave.gender,
+            age : dataToSave.age,
+            ownerName: dataToSave.ownerName,
+            email: dataToSave.email,
+            sis: dataToSave.sis,
+            coordX: dataToSave.coordX,
+            coordY: dataToSave.coordY
+        };
+        // create new DB instance
+        newUser = new User(userJason);
+        User.createUser(newUser, function (err, user) {
+            if (err){
+                res.status(500).end("Error");
+            }
+            else {
+                res.status(200).json(newUser);
+            }
+        });
+    }
 });
 
 
@@ -80,12 +106,13 @@ router.post('/login',passport.authenticate('local'), function (req,res) {
         var userJason = {
             email: registerData.email,
             sis:registerData.sis,
-            _id:data._id       // Send _id in response as it is required in other API's
+            _id:data._id,       // Send _id in response as it is required in other API's
+            photo : data.photo,
+            photoBase64 : data.photoBase64,
+            photoExt : data.photoExt
         };
         var stringify = JSON.stringify(userJason);
-
-        /// added By ASSAF - covert the string to JsonObject
-        res.status(200).json(JSON.parse(stringify));
+        res.status(200).json(stringify);
     });
 });
 
@@ -102,29 +129,65 @@ router.post('/login',passport.authenticate('local'), function (req,res) {
  * }
  * Passport Authentication : true
  * */
-router.post('/change_info',ensureLogin.ensureLoggedIn(), function(req,res){
+router.post('/change_info', [upload.single('photo') ,ensureLogin.ensureLoggedIn()], function(req,res){
     var updateID = req.body.userId;
     var updateInfo = req.body;
-    User.findOneAndUpdate(
-        {
-            _id : updateID
-        },
-        {
-            $set:{
-                dogName: updateInfo.dogName,
-                gender: updateInfo.gender,
-                age: updateInfo.age,
-                ownerName: updateInfo.ownerName,
-                coordX: updateInfo.coordX,
-                coordY: updateInfo.coordY
+    if(req.file){ /* If Photo is uploaded */
+        var newImg = fs.readFileSync(req.file.path);
+        // encode the file as a base64 string.
+        var encImg = newImg.toString('base64');
+        var splitName = req.file.originalname.split('.');
+        var fileNameToSave = path.dirname(process.mainModule.filename) + "/Server/photos/"+req.file.filename+"."+splitName[splitName.length - 1];
+        fs.writeFile(fileNameToSave, encImg, 'base64', function(err) {
+            fs.unlink(path.dirname(process.mainModule.filename) + "/Server/photos/"+req.file.filename);
+            User.findOneAndUpdate(
+                {
+                    _id : updateID
+                },
+                {
+                    $set:{
+                        dogName: updateInfo.dogName,
+                        gender: updateInfo.gender,
+                        age: updateInfo.age,
+                        ownerName: updateInfo.ownerName,
+                        coordX: updateInfo.coordX,
+                        coordY: updateInfo.coordY,
+                        photo : fileNameToSave,
+                        photoBase64 : encImg,
+                        photoExt : splitName[splitName.length - 1]
+                    }
+                }, function(err,upObj){
+                    if (err) {
+                        res.status(500).end("Error, user not in DB");
+                    }
+                    res.status(200).end("OK, changed info");
+                }
+            );
+        });
+    }
+    else{
+        User.findOneAndUpdate(
+            {
+                _id : updateID
+            },
+            {
+                $set:{
+                    dogName: updateInfo.dogName,
+                    gender: updateInfo.gender,
+                    age: updateInfo.age,
+                    ownerName: updateInfo.ownerName,
+                    coordX: updateInfo.coordX,
+                    coordY: updateInfo.coordY
+                }
+            }, function(err,upObj){
+                if (err) {
+                    res.status(500).end("Error, user not in DB");
+                }
+                res.status(200).end("OK, changed info");
             }
-        }, function(err,upObj){
-            if (err) {
-                res.status(500).end("Error, user not in DB");
-            }
-            res.status(200).end("OK, changed info");
-        }
-    );
+        );
+    }
+
 });
 
 /* GET User Details API
@@ -305,7 +368,7 @@ router.post('/removeLostDog', function(req,res){
                 res.status(500).end("Data cannot be saved.");
             }
             else{
-                res.status(200).end("EnKtry Removed");
+                res.status(200).end("Entry Removed");
             }
         }
     );

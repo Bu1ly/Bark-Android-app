@@ -14,8 +14,10 @@ var user = new Schema({
     email: String,
     sis: String,
     coordX: String,
-    coordY: String
-
+    coordY: String,
+    photo : String,
+    photoBase64 : String,
+    photoExt : String
 });
 
 /// -- Connect collections to schema  -- ///
@@ -25,6 +27,7 @@ var User = module.exports = mongoose.model('usersDB', user);
 /// -- Export -- ///
 
 module.exports.createUser = function (newUser, callback) {
+    console.log(newUser);
     bcrypt.genSalt(10, function (err,salt) {
         bcrypt.hash(newUser.sis, salt, function (err, hash) {
             newUser.sis = hash;
