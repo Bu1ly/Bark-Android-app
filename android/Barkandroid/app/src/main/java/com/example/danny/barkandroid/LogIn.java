@@ -44,7 +44,7 @@ public class LogIn extends AppCompatActivity {
     String email,password;
     TextView link_to_singup ,_temp_link_to_map;
     AlertDialog.Builder builder;
-    String reg_url ="http://192.168.1.23:8000/login";
+    String reg_url ="http://192.168.1.29:8000/login";
 
 
     int SIGN_IN_REQUEST_CODE;

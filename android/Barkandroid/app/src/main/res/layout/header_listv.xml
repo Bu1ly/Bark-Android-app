@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+
+
+        android:id="@+id/linearLayout2"
+        android:gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="UserName"
+            android:textColor="#e6ffffff"
+            android:gravity="center_horizontal"
+            android:background="#88121111"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Dog-Type"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center"
+            android:background="#88c4c7c4"/>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Gender"
+            android:gravity="center_horizontal"
+            android:textColor="#e6ffffff"
+            android:layout_gravity="right"
+            android:background="#88121111"/>
+
+
+</LinearLayout>

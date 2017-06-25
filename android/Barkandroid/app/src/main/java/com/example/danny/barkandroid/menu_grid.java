@@ -76,14 +76,14 @@ public class menu_grid extends AppCompatActivity {
 
             public void onClick(View v)
             {
-            /*
+
                 File dir = getFilesDir();
                 File file = new File(dir, "UserKey");
                 file.delete();
                 File file2 = new File(dir, "MyJsonObj");
                 file2.delete();
                 startActivity(new Intent(menu_grid.this,LogIn.class)); //register.class
-           */
+
             }
 
         });
