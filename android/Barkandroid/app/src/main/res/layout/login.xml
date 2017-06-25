@@ -8,9 +8,9 @@
     android:paddingRight="24dp"
     >
 
-    <ImageView android:src="@mipmap/ic_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="72dp"
+    <ImageView android:src="@mipmap/dog_icon_smile_new"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginBottom="24dp"
         android:layout_gravity="center_horizontal" />
 

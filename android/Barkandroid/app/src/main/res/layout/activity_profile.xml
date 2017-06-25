@@ -2,12 +2,29 @@
 
 
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+xmlns:tools="http://schemas.android.com/tools"
+android:fitsSystemWindows="true">
+
+
+
+
+<LinearLayout
     android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="56dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    tools:context="com.example.danny.barkandroid.register"
     android:weightSum="1">
+
+
+
 
     <ImageView
         android:id="@+id/imgView"
@@ -25,31 +42,117 @@
         android:text="Upload Picture"
         android:layout_gravity="center"/>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp">
-        <EditText android:id="@+id/input_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textCapWords"
-            android:text="TempUser"
 
-            android:gravity="center_horizontal" />
-    </android.support.design.widget.TextInputLayout>
+
+
+
+
+
+
+    <!--  UserName Label -->
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
-        <EditText android:id="@+id/input_email"
+        <TextView android:id="@+id/input_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapWords"
-            android:text="TempEmail"
-            android:gravity="center_horizontal"/>
+            android:text="UserName:" />
     </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvNumber1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+
+        android:text="(123) 456-7890"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#43d185"
+        android:textStyle="normal|bold" />
+
+    <!-- Email Label -->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
+        <TextView android:id="@+id/input_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:text="Email"
+             />
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvNumber2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+
+        android:text="(123) 456-7890"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#43d185"
+        android:textStyle="normal|bold" />
+
+    <!-- Type Label -->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
+        <TextView android:id="@+id/input_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:text="Dog Breed" />
+    </android.support.design.widget.TextInputLayout>
+
+    <EditText
+        android:id="@+id/tvNumber3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+
+        android:text="(123) 456-7890"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#43d185"
+        android:textStyle="normal|bold" />
+
+
+
+
+    <!-- Password Label -->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
+        <EditText android:id="@+id/input_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Password"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
+        <EditText android:id="@+id/confim_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Confim Password"/>
+    </android.support.design.widget.TextInputLayout>
+
 
 
     <android.support.v7.widget.AppCompatButton
@@ -62,4 +165,6 @@
         android:layout_marginEnd="7dp" />
 
 
+
 </LinearLayout>
+</ScrollView>

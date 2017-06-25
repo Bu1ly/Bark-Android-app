@@ -70,6 +70,7 @@ public class LogIn extends AppCompatActivity {
             fin = openFileInput(FILENAME);
 
 
+
             while( (c = fin.read()) != -1){
                 tempkey = tempkey + Character.toString((char)c);
             }
@@ -79,18 +80,23 @@ public class LogIn extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-/*
+
         if(tempkey.equals("MyKey")){
             try {
                 if(openFileInput("MyJsonObj")!=null) // move to the menu only if he have json data user
-                  //  startActivity(new Intent(LogIn.this, menu_grid.class));
+                     startActivity(new Intent(LogIn.this, menu_grid.class));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
 
 
         }
-        */
+
+        File dir = getFilesDir();
+        File file = new File(dir, "UserKey");
+        file.delete();
+        File file2 = new File(dir, "MyJsonObj");
+        file2.delete();
 
 
 

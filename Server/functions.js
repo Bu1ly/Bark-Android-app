@@ -270,6 +270,7 @@ router.get('/getAllUsers', function(req,res){
                 res.status(500).end("Error, user not in DB");
             }
             else if(upObj.length > 0){
+
                 res.status(200).json(upObj);
             }
             else{
@@ -413,6 +414,7 @@ router.post('/addVaccine',ensureLogin.ensureLoggedIn(),  function(req,res){
  * Passport Authentication : true
  * */
 router.post('/getUsersWithinDistance', function(req,res){
+
     if(req.body.coordX && req.body.coordY && req.body.range){
         var selectedUsers = [];
         var currrentTime = new Date();
@@ -465,19 +467,23 @@ router.post('/getUsersWithinDistance', function(req,res){
                     }
                     async.parallel(taskInParallel, function (err, result) {
                         if(err){
+                            console.log("blablab2");
                             res.status(200).end("No Users Found");
                         }
                         else {
                             if(selectedUsers.length == 0){
+                                console.log("blablab3");
                                 res.status(200).end("No Users Found");
                             }
                             else{
+                                console.log(selectedUsers);
                                 res.status(200).json(selectedUsers);
                             }
                         }
                     });
                 }
                 else{
+                    console.log("blablab4");
                     res.status(200).end("No Users Found");
                 }
             });

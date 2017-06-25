@@ -55,6 +55,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
@@ -75,14 +79,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     final long MIN_TIME_FOR_UPDATE = 1000;
     final float MIN_DIS_FOR_UPFATE = 0.01f;
-    double vti;
     private GoogleApiClient mGoogleApiClient;
     private Location myLocation;
     private Marker myMarkerLocation;
     private boolean mapFlag = false;
     private LocationManager locationManager;
+    private Calendar c ;
+    private int seconds ;
+    private int secondCounter;
 
-    private JSONArray jsonArray;
+
 
 
     @Override
@@ -127,12 +133,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         ///////////////////// permission REQUEST//////////////////////////////
-        final int REQUEST_CODE_ASK_PERMISSIONS = 123;
-        ActivityCompat.requestPermissions(this, new String[]{"android.permission.ACCESS_FINE_LOCATION"}, REQUEST_CODE_ASK_PERMISSIONS);
-        ActivityCompat.requestPermissions(this, new String[]{"android.permission.ACCESS_COARSE_LOCATION"}, REQUEST_CODE_ASK_PERMISSIONS);
         if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_FOR_UPDATE, MIN_DIS_FOR_UPFATE, (android.location.LocationListener) locationListener);
+
+        }
+        else{
+            final int REQUEST_CODE_ASK_PERMISSIONS = 123;
+            ActivityCompat.requestPermissions(this, new String[]{"android.permission.ACCESS_FINE_LOCATION"}, REQUEST_CODE_ASK_PERMISSIONS);
+            ActivityCompat.requestPermissions(this, new String[]{"android.permission.ACCESS_COARSE_LOCATION"}, REQUEST_CODE_ASK_PERMISSIONS);
 
         }
 
@@ -207,20 +216,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         if(mapFlag ==true) {
                             double zoomLevel = 16.0; //This goes up to 21
-                            MarkerOptions a = new MarkerOptions().position(new LatLng(arg0.getLatitude(), arg0.getLongitude())).title("It's Me!");
-                            myMarkerLocation = mMap.addMarker(a);
                             LatLng MyLocation = new LatLng(arg0.getLatitude(), arg0.getLongitude());
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(MyLocation, (float) zoomLevel));
                             mapFlag = false;
 
+                            //Get first time on the map
+                            c = Calendar.getInstance();
+                            secondCounter = c.get(Calendar.SECOND);
+                            Toast.makeText(MapsActivity.this, "Search Dogs..",
+                                    Toast.LENGTH_SHORT).show();
 
                         }
-                        else{
-                            //update my location
-                            myMarkerLocation.setPosition(new LatLng(arg0.getLatitude(), arg0.getLongitude()));
-                            UpdateMap(arg0.getLatitude(), arg0.getLongitude());
-                        }
+                        else {
+                            c = Calendar.getInstance();
+                            seconds = c.get(Calendar.SECOND);
 
+
+                            //Refresh map every 8 second
+                            if (((secondCounter + 8) % 60) < seconds) {
+                                secondCounter = c.get(Calendar.SECOND);
+                                //update my location
+                              UpdateMap(arg0.getLatitude()+0.002897, arg0.getLongitude()-0.000297);
+                           //c     UpdateMap(arg0.getLatitude(), arg0.getLongitude());
+                            }
+                        }
 
                     }
 
@@ -238,31 +257,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-
-
-/*
-
-        // Add a marker and move the camera
-        LatLng sacher_park = new LatLng(31.780600, 35.207700);
-        mMap.addMarker(new MarkerOptions().position(sacher_park).title("Marker in Sacher Park"));
-
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(31.781600, 35.208700))
-                .title("[Usr-Gershon] " + DistanceFromPoint(31.781600, 35.208700, 31.780600, 35.207700)).icon(iconStyle));
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(31.780400, 35.209325))
-                .title("[Usr-Danny] " + DistanceFromPoint(31.780400, 35.209325, 31.780600, 35.207700)).snippet("Thinking of finding some thing...").icon(iconStyle));
-
-
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(31.784600, 35.207107))
-                .title("[Usr-Moshe] " + DistanceFromPoint(31.784600, 35.207107, 31.780600, 35.207700)).icon(iconStyle));
-
-
-        double zoomLevel = 16.0; //This goes up to 21
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sacher_park, (float) zoomLevel));
-*/
-
     }
 
 
@@ -274,11 +268,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        *       range      : "in KM"
 //                * }
 //
-    public void UpdateMap(Double Lat, Double Long){
+    public void UpdateMap(final Double Lat, final Double Long){
 
-         String temp="";
+          String temp="";
+        String name="";
         try {
-             temp = obj.getString("_id");
+            temp = obj.getString("_id");
+            name = obj.getString("ownerName");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -286,6 +282,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         paramsUser.put("userId", temp);
         paramsUser.put("coordY", Double.toString(Long));
         paramsUser.put("coordX", Double.toString(Lat));
+        paramsUser.put("ownerName", name);
+
 
         JSONObject UserParameters = new JSONObject(paramsUser);
 
@@ -317,9 +315,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         params.put("coordX", Double.toString(Lat));
         params.put("coordY", Double.toString(Long));
         params.put("range", "50");
+        params.put("_id", temp);
         JSONObject parameters = new JSONObject(params);
 
 
+        final String finalTemp = temp;
         JsonArrayRequest jsArrayRequest = new JsonArrayRequest(Request.Method.POST, getMapData_url, parameters, new Response.Listener<JSONArray>()
         //JsonObjectRequest jsObjRequest = new JsonObjectRequest
           //      (Request.Method.POST, getMapData_url, parameters, new Response.Listener<JSONObject>() {
@@ -338,32 +338,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 Double _long = Double.parseDouble(object.getString("coordY"));
 
 
-                                mMap.addMarker(new MarkerOptions()
-                                        .position(new LatLng(_lat, _long)).title("[Usr-Moshe] " + DistanceFromPoint(31.784600, 35.207107, 31.780600, 35.207700)).icon(iconStyle));
+                                // Show only other users
+                                if(!object.getString("_id").equals(finalTemp) ) {
+                            /*
+                                    SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+                                    Date yourDate = parser.parse(object.getString("lastActiveTime"));
+                                    Calendar calendar = Calendar.getInstance();
+                                    int currectDateTime = calendar.get(Calendar.DATE);
+                                    int currectMinTime = calendar.get(Calendar.MINUTE);
+                                    int currectHourTime = calendar.get(Calendar.HOUR);
+                                    calendar.setTime(yourDate);
+                                    int dayFomDB = calendar.get(Calendar.DAY_OF_MONTH); //Day of the month :)
+                                    int timeFromDb = calendar.get(Calendar.MINUTE); //number of seconds
+                                    int TimeHourFromDb = calendar.get(Calendar.HOUR);
+*/
+                                  //  if (dayFomDB == currectDateTime && (currectMinTime - timeFromDb) < 2 && TimeHourFromDb == currectHourTime) {
+                                        mMap.addMarker(new MarkerOptions()
+                                                .position(new LatLng(_lat, _long)).title(object.getString("ownerName") + " " + DistanceFromPoint(_lat, _long, Lat, Long)).icon(iconStyle));
 
-
+                                  //  }
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
 
-
-/*
-
-                        AlertDialog alertDialog = new AlertDialog.Builder(MapsActivity.this).create();
-                        alertDialog.setTitle("");
-                        alertDialog.setMessage("   ---Debug1---=    "+response.toString());
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-
-                                    }
-                                });
-                        alertDialog.show();
-
-
-       */                 ////END
 
 
                     }
@@ -391,66 +390,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         MySingleton.getInstance(MapsActivity.this).addToRequestque(jsArrayRequest);
 
 
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(31.784600, 35.207107)).title("[Usr-Moshe] " + DistanceFromPoint(31.784600, 35.207107, 31.780600, 35.207700)).icon(iconStyle));
 
     }
 
 
-    public void pinMap() {
 
 
-        Map<String, String> params = new HashMap();
-        params.put("email", "dsfasd");
-        params.put("sis", "sadfsdaf");
-
-        JSONObject parameters = new JSONObject(params);
-
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.POST, getMapData_url, parameters, new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // System.out.println("\n\n\n\n\n   Response: " + response.toString()+"\n\n\n\n\n");
-
-                        ////Save the password on Internal Storage
-
-
-                        String FILENAME = "UserKey";
-                        String string = "MyKey";
-                        FileOutputStream fos;
-                        try {
-                            fos = openFileOutput(FILENAME, MODE_PRIVATE);
-                            fos.write(string.getBytes());
-                            fos.close();
-
-                            fos = openFileOutput("MyJsonObj", MODE_PRIVATE);
-                            fos.write(response.toString().getBytes());
-                            fos.close();
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        ////END
-
-
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
-
-                        System.out.println("FIX ME!!! error: " + error.toString());
-
-
-                    }
-                });
-        MySingleton.getInstance(MapsActivity.this).addToRequestque(jsObjRequest);
-
-
-    }
 
 
     ///Return distance from the point in meter
