@@ -10,7 +10,7 @@ var Schema = mongoose.Schema;
 var vaccines = new Schema({
     userId: {type: Schema.ObjectId, ref: 'usersDB', required: true , index : true},
     name: String,
-    date: Date,
+    date: String,
     expiry: Date
 });
 

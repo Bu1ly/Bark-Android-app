@@ -67,7 +67,7 @@
     <ImageView
         android:layout_width="190dp"
         android:layout_height="190dp"
-        app:srcCompat="@mipmap/dog_walk_icon_new"
+        app:srcCompat="@mipmap/icon_dog_lost_new"
         android:id="@+id/walklist"
         android:layout_alignParentStart="true"
         app:layout_widthPercent="50%"

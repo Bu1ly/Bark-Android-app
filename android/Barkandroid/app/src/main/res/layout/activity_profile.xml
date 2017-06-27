@@ -59,17 +59,17 @@ android:fitsSystemWindows="true">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapWords"
-            android:text="UserName:" />
+            android:text="UserName" />
     </android.support.design.widget.TextInputLayout>
 
-    <TextView
-        android:id="@+id/tvNumber1"
+    <EditText
+        android:id="@+id/userNameProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
 
-        android:text="(123) 456-7890"
+
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#43d185"
         android:textStyle="normal|bold" />
@@ -89,13 +89,13 @@ android:fitsSystemWindows="true">
     </android.support.design.widget.TextInputLayout>
 
     <TextView
-        android:id="@+id/tvNumber2"
+        android:id="@+id/emailProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
 
-        android:text="(123) 456-7890"
+
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#43d185"
         android:textStyle="normal|bold" />
@@ -110,17 +110,18 @@ android:fitsSystemWindows="true">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:text="Dog Breed" />
+            android:text="Dog Type"
+             />
     </android.support.design.widget.TextInputLayout>
 
     <EditText
-        android:id="@+id/tvNumber3"
+        android:id="@+id/Dog_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
 
-        android:text="(123) 456-7890"
+
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#43d185"
         android:textStyle="normal|bold" />
@@ -128,30 +129,6 @@ android:fitsSystemWindows="true">
 
 
 
-    <!-- Password Label -->
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp">
-        <EditText android:id="@+id/input_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="Password"/>
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp">
-        <EditText android:id="@+id/confim_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="Confim Password"/>
-    </android.support.design.widget.TextInputLayout>
 
 
 

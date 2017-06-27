@@ -84,7 +84,7 @@ public class menuNavigation extends AppCompatActivity
 
         switch(id){
             case R.id.nav_vaccines:
-                fragment =new Vaccines();
+               // fragment =new Vaccines();
                 break;
             case R.id.nav_map:
                 fragment =new MapViewFragment();

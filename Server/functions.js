@@ -110,6 +110,8 @@ router.post('/login',passport.authenticate('local'), function (req,res) {
             sis:registerData.sis,
             _id:data._id,       // Send _id in response as it is required in other API's
             ownerName:data.ownerName,
+            dogName:data.dogName,
+            gender:data.gender,
             photo : data.photo,
             photoBase64 : data.photoBase64,
             photoExt : data.photoExt
@@ -224,8 +226,9 @@ router.get('/user_info/:userId',ensureLogin.ensureLoggedIn(),  function(req,res)
  * }
  * Passport Authentication : true
  * */
-router.get('/vaccines/:userId',ensureLogin.ensureLoggedIn(),  function(req,res){
-    var updateID = req.query.userId;
+router.get('/vaccines/:userId',  function(req,res){
+    var updateID = req.params.userId;
+
     Vaccine.find(
         {
             userId : updateID
@@ -241,9 +244,11 @@ router.get('/vaccines/:userId',ensureLogin.ensureLoggedIn(),  function(req,res){
                 res.status(500).end("Error, user not in DB");
             }
             else if(upObj.length > 0){
+
                 res.status(200).json(upObj);
             }
             else{
+
                 res.status(200).end("No vaccines found");
             }
         }
@@ -391,7 +396,7 @@ router.post('/removeLostDog', function(req,res){
  * }
  * Passport Authentication : true
  * */
-router.post('/addVaccine',ensureLogin.ensureLoggedIn(),  function(req,res){
+router.post('/addVaccine',  function(req,res){
     var dataToSave = req.body;
     var VaccineModel = new Vaccine(dataToSave);
     VaccineModel.save(function(err,upObj){
@@ -476,7 +481,7 @@ router.post('/getUsersWithinDistance', function(req,res){
                                 res.status(200).end("No Users Found");
                             }
                             else{
-                                console.log(selectedUsers);
+
                                 res.status(200).json(selectedUsers);
                             }
                         }

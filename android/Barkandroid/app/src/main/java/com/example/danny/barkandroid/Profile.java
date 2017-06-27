@@ -14,9 +14,28 @@ import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.danny.barkandroid.R.mipmap.profile_dog_icon;
 
@@ -26,9 +45,14 @@ public class Profile extends Activity {
     ///// after save need to save to the server
     ///// on load the page need to get from the server the user profile
 
-
+    private String UpdaeUser_url = "http://192.168.1.29:8000/change_info";
     private static int RESULT_LOAD_IMAGE = 1;
-    ImageView imageView;
+    private ImageView imageView;
+    private EditText userName ,DogType;
+    private TextView email;
+    private JSONObject obj;
+    private Button save;
+    private String imageString="";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +60,35 @@ public class Profile extends Activity {
         setContentView(R.layout.activity_profile);
 
         imageView = (ImageView) findViewById(R.id.imgView);
+        userName = (EditText)findViewById(R.id.userNameProfile);
+        email = (TextView) findViewById(R.id.emailProfile);
+        DogType = (EditText)findViewById(R.id.Dog_type);
+        save = (Button)findViewById(R.id.btn_signup);
+
+
+        FileInputStream fin;
+        int c;
+        String tempkey = "";
+
+        try {
+            fin = openFileInput("MyJsonObj");
+
+
+            while ((c = fin.read()) != -1) {
+                tempkey = tempkey + Character.toString((char) c);
+            }
+            fin.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            obj = new JSONObject(tempkey);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         Bitmap icon = BitmapFactory.decodeResource(getResources(),
                 R.drawable.dog);
@@ -56,6 +109,21 @@ public class Profile extends Activity {
                 }
             }
         });
+
+        save.setOnClickListener(new View.OnClickListener()
+        {
+
+            public void onClick(View v)
+            {
+                SaveMyProfileDeatiles();
+            }
+
+        });
+
+
+        loadProfile();
+
+
     }
 
 
@@ -78,13 +146,77 @@ public class Profile extends Activity {
 
             //imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
             imageView.setImageBitmap(getRoundedShape(BitmapFactory.decodeFile(picturePath)));
+
+             imageString = getStringImage(getRoundedShape(BitmapFactory.decodeFile(picturePath)));
         }
 
 
     }
 
 
+    private void loadProfile(){
+        try {
+            userName.setText(obj.getString("ownerName"));
+            email.setText(obj.getString("email"));
+            DogType.setText(obj.getString("dogName"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
+
+    private void  SaveMyProfileDeatiles(){
+
+        String temp="";
+
+        String _gender="";
+        try {
+            temp = obj.getString("_id");
+
+            _gender = obj.getString("gender");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Map<String, String> paramsUser = new HashMap();
+        paramsUser.put("userId", temp);
+        paramsUser.put("gender", _gender);
+
+        paramsUser.put("ownerName", userName.getText().toString());
+        paramsUser.put("dogName", DogType.getText().toString());
+
+        if(!imageString.equals(""))
+            paramsUser.put("photoBase64", imageString);
+
+
+
+
+
+        JSONObject UserParameters = new JSONObject(paramsUser);
+
+        JsonObjectRequest jsObjRequestV2 = new JsonObjectRequest
+                (Request.Method.POST, UpdaeUser_url, UserParameters, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Profile.this, "Profile was update",
+                                Toast.LENGTH_SHORT).show();
+                        finish();
+
+
+                    }
+                });
+        MySingleton.getInstance(Profile.this).addToRequestque(jsObjRequestV2);
+
+
+    }
 
     public Bitmap getRoundedShape(Bitmap scaleBitmapImage) {
         int targetWidth = 300;
@@ -107,6 +239,14 @@ public class Profile extends Activity {
                         sourceBitmap.getHeight()),
                 new Rect(0, 0, targetWidth, targetHeight), null);
         return targetBitmap;
+    }
+
+    public String getStringImage(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
     }
 
 }

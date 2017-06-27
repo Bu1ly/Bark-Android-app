@@ -13,7 +13,7 @@ import java.io.File;
 public class menu_grid extends AppCompatActivity {
 
 
-    ImageView mapIcon , profileIcon ,chatButton , Searchusers, LogOut;
+    ImageView mapIcon , profileIcon ,chatButton , Searchusers, LogOut, vaccines;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +25,7 @@ public class menu_grid extends AppCompatActivity {
         chatButton= (ImageView)findViewById(R.id.Chat_icon);
         Searchusers = (ImageView)findViewById(R.id.userList);
         LogOut = (ImageView)findViewById(R.id.logouticon);
+        vaccines= (ImageView)findViewById(R.id.imageView5);
 
 
 
@@ -71,6 +72,16 @@ public class menu_grid extends AppCompatActivity {
 
         });
 
+        vaccines.setOnClickListener(new View.OnClickListener()
+        {
+
+            public void onClick(View v)
+            {
+                startActivity(new Intent(menu_grid.this,Vaccines.class)); //register.class
+            }
+
+        });
+
         LogOut.setOnClickListener(new View.OnClickListener()
         {
 
@@ -87,5 +98,7 @@ public class menu_grid extends AppCompatActivity {
             }
 
         });
+
+
     }
 }

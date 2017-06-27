@@ -26,11 +26,7 @@
 
         <activity
             android:name=".LogIn"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-
-        </activity>
-
-
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
         <activity
             android:name=".register"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
@@ -68,9 +64,12 @@
         <activity
             android:name=".SearchUsers"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".appLounch"
+        <activity
+            android:name=".Vaccines"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".appLounch"
             android:theme="@style/AppTheme.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

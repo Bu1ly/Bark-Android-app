@@ -73,9 +73,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private JSONObject obj;
     ////marker style
     private BitmapDescriptor iconStyle;
-    private String getMapData_url = "http://192.168.1.23:8000/getUsersWithinDistance";
+    private String getMapData_url = "http://192.168.1.29:8000/getUsersWithinDistance";
 
-    private String UpdaeUser_url = "http://192.168.1.23:8000/change_info";
+    private String UpdaeUser_url = "http://192.168.1.29:8000/change_info";
 
     final long MIN_TIME_FOR_UPDATE = 1000;
     final float MIN_DIS_FOR_UPFATE = 0.01f;
@@ -236,7 +236,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             if (((secondCounter + 8) % 60) < seconds) {
                                 secondCounter = c.get(Calendar.SECOND);
                                 //update my location
-                              UpdateMap(arg0.getLatitude()+0.002897, arg0.getLongitude()-0.000297);
+                              UpdateMap(arg0.getLatitude(), arg0.getLongitude());
                            //c     UpdateMap(arg0.getLatitude(), arg0.getLongitude());
                             }
                         }
@@ -260,21 +260,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-//    Get Users Within Distance
-//    * Method : POST
-//    * payload : {
-//        *       coordX     : "Lat",
-//        *       coordY      : "Long",
-//        *       range      : "in KM"
-//                * }
-//
     public void UpdateMap(final Double Lat, final Double Long){
 
-          String temp="";
+        String temp="";
         String name="";
+        String _dogName="";
+        String _gender="";
         try {
             temp = obj.getString("_id");
             name = obj.getString("ownerName");
+            _dogName = obj.getString("dogName");
+            _gender = obj.getString("gender");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -283,6 +279,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         paramsUser.put("coordY", Double.toString(Long));
         paramsUser.put("coordX", Double.toString(Lat));
         paramsUser.put("ownerName", name);
+        paramsUser.put("dogName", _dogName);
+        paramsUser.put("gender", _gender);
+
+
+
 
 
         JSONObject UserParameters = new JSONObject(paramsUser);
@@ -333,6 +334,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         for(int i=0 ; i<response.length(); i++)
                         {
                             try {
+
+
                                 JSONObject object = response.getJSONObject(i);
                                 Double _lat = Double.parseDouble(object.getString("coordX"));
                                 Double _long = Double.parseDouble(object.getString("coordY"));
@@ -340,20 +343,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                                 // Show only other users
                                 if(!object.getString("_id").equals(finalTemp) ) {
-                            /*
-                                    SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-                                    Date yourDate = parser.parse(object.getString("lastActiveTime"));
-                                    Calendar calendar = Calendar.getInstance();
-                                    int currectDateTime = calendar.get(Calendar.DATE);
-                                    int currectMinTime = calendar.get(Calendar.MINUTE);
-                                    int currectHourTime = calendar.get(Calendar.HOUR);
-                                    calendar.setTime(yourDate);
-                                    int dayFomDB = calendar.get(Calendar.DAY_OF_MONTH); //Day of the month :)
-                                    int timeFromDb = calendar.get(Calendar.MINUTE); //number of seconds
-                                    int TimeHourFromDb = calendar.get(Calendar.HOUR);
-*/
-                                  //  if (dayFomDB == currectDateTime && (currectMinTime - timeFromDb) < 2 && TimeHourFromDb == currectHourTime) {
-                                        mMap.addMarker(new MarkerOptions()
+
+                             mMap.addMarker(new MarkerOptions()
                                                 .position(new LatLng(_lat, _long)).title(object.getString("ownerName") + " " + DistanceFromPoint(_lat, _long, Lat, Long)).icon(iconStyle));
 
                                   //  }
