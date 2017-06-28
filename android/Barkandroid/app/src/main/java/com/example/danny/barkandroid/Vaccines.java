@@ -41,8 +41,8 @@ import java.util.Map;
 public class Vaccines extends AppCompatActivity {
 
      ImageView addIcon;
-    private String Vaccines_url ="http://192.168.1.29:8000/vaccines/";
-    private String Add_Vaccines_url ="http://192.168.1.29:8000/addVaccine";
+    private String Vaccines_url ="https://barkandroid.herokuapp.com/vaccines/";
+    private String Add_Vaccines_url ="https://barkandroid.herokuapp.com/addVaccine";
 
     private ArrayList<String> items;
     private ArrayList<JSONObject> listItems;

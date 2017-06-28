@@ -175,7 +175,7 @@ router.post('/change_info', upload.single('photo') , function(req,res){
                     if (err) {
                         res.status(500).end("Error, user not in DB");
                     }
-                    res.status(200).end("OK, changed info");
+                    res.status(200).end(JSON.parse("OK, changed info"));
                 }
             );
         });

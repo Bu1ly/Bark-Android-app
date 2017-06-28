@@ -7,41 +7,34 @@
     android:padding="10dp">
 
     <ImageView
-        android:layout_width="28dp"
-        android:layout_height="28dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         app:srcCompat="@mipmap/profile_dog_icon"
         android:id="@+id/imageView3" />
 
 
 
-    <TextView
-        android:id="@+id/txtid"
-        android:layout_width="fill_parent"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:text="UserName"
 
-        android:gravity="left"
-        android:background="#30e2ea6c"
-        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/txtname"
         android:layout_width="fill_parent"
         android:layout_weight="1"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:text="Dog-Type"
-        android:gravity="left"
+        android:gravity="center"
 
-        android:background="#30e2ea6c"/>
+        android:background="#30e2ea6c"
+        android:textSize="18sp"
+        android:textStyle="normal|bold" />
 
     <TextView
         android:id="@+id/txtsex"
         android:layout_width="fill_parent"
         android:layout_weight="1"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:text="Gender"
-        android:gravity="left"
+        android:gravity="center"
 
         android:layout_gravity="right"
         android:background="#30e2ea6c"/>

@@ -1,10 +1,13 @@
 package com.example.danny.barkandroid;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -15,7 +18,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-
+import static com.example.danny.barkandroid.R.*;
 
 
 /**
@@ -49,19 +52,39 @@ public class ListAdapter extends ArrayAdapter<JSONObject> {
 
             View itemView = inflater.inflate(vg, parent, false);
 
-            TextView txtId=(TextView)itemView.findViewById(R.id.txtid);
 
-            TextView txtName=(TextView)itemView.findViewById(R.id.txtname);
 
-            TextView txtSex=(TextView)itemView.findViewById(R.id.txtsex);
+            TextView txtName=(TextView)itemView.findViewById(id.txtname);
+
+            TextView txtSex=(TextView)itemView.findViewById(id.txtsex);
+            ImageView temp = (ImageView)itemView.findViewById(id.imageView3);
 
             try {
+                if(position==0){
 
-                txtId.setText(list.get(position).getString("ownerName"));
+                    Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(),mipmap.doglost1);
+                    temp.setImageBitmap(largeIcon);
+                }
+                else if(position==1){
+
+                    Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(),mipmap.doglost2);
+                    temp.setImageBitmap(largeIcon);
+                }
+                else if(position==2){
+
+                    Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(),mipmap.dog_lost3_german);
+                    temp.setImageBitmap(largeIcon);
+                }
+                else{
+                    Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(),mipmap.dog_icon_lost);
+                    temp.setImageBitmap(largeIcon);
+
+                }
+
 
                 txtName.setText(list.get(position).getString("dogName"));
 
-                txtSex.setText(list.get(position).getString("gender"));
+                txtSex.setText(list.get(position).getString("phone"));
 
 
 

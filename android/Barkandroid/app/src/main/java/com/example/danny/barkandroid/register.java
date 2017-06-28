@@ -41,9 +41,9 @@ public class register extends AppCompatActivity {
     RadioGroup radioSexGroup;
     RadioButton radioSexButton;
     AlertDialog.Builder builder;
-   // String reg_url ="http://10.0.2.2:8000/register";
 
-    String reg_url ="http://192.168.1.29:8000/register";
+
+    String reg_url ="https://barkandroid.herokuapp.com/register";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

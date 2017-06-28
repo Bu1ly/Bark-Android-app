@@ -13,7 +13,7 @@ import java.io.File;
 public class menu_grid extends AppCompatActivity {
 
 
-    ImageView mapIcon , profileIcon ,chatButton , Searchusers, LogOut, vaccines;
+   private ImageView mapIcon , profileIcon ,chatButton , Searchusers, LogOut, vaccines;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

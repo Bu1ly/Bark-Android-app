@@ -13,17 +13,7 @@
     android:background="@color/myColor">
 
 
-    <ImageView
 
-        app:srcCompat="@mipmap/dog_loguot_icon_new2"
-        android:id="@+id/logouticon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentStart="true"
-        app:layout_widthPercent="10%"
-        app:layout_marginTopPercent="0%"
-        app:layout_marginBottomPercent="0%"
-        />
 
 
     <ImageView
@@ -49,7 +39,7 @@
     <ImageView
         android:layout_width="190dp"
         android:layout_height="190dp"
-        app:srcCompat="@mipmap/dog_search_icon_new"
+        app:srcCompat="@mipmap/icon_dog_lost_new"
         android:id="@+id/userList"
         android:layout_alignParentStart="true"
         app:layout_widthPercent="50%"
@@ -67,8 +57,8 @@
     <ImageView
         android:layout_width="190dp"
         android:layout_height="190dp"
-        app:srcCompat="@mipmap/icon_dog_lost_new"
-        android:id="@+id/walklist"
+        app:srcCompat="@mipmap/dog_logout_icon_new"
+        android:id="@+id/logouticon"
         android:layout_alignParentStart="true"
         app:layout_widthPercent="50%"
         app:layout_marginTopPercent="66%"
@@ -91,70 +81,4 @@
 
 
 </android.support.percent.PercentRelativeLayout>
-<!--
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_menu_grid"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.danny.barkandroid.menu_grid">
--->
-
-
-    <!--
-    <ImageView
-        android:layout_width="190dp"
-        android:layout_height="190dp"
-        app:srcCompat="@mipmap/turnon_dog_icon"
-        android:id="@+id/imageView9"
-        android:layout_alignTop="@+id/imageView7"
-        android:layout_alignStart="@+id/imageView5" />
-
-    <ImageView
-        android:layout_width="190dp"
-        android:layout_height="190dp"
-        app:srcCompat="@mipmap/profile_dog_icon"
-        android:id="@+id/ImageProfile"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-    <ImageView
-        android:layout_width="190dp"
-        android:layout_height="190dp"
-        app:srcCompat="@mipmap/map_dog_icon"
-        android:id="@+id/imageMap"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
-
-    <ImageView
-        android:layout_width="190dp"
-        android:layout_height="190dp"
-        app:srcCompat="@mipmap/vaccines_dog_icon"
-        android:id="@+id/imageView5"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true" />
-
-    <ImageView
-        android:layout_width="190dp"
-        android:layout_height="190dp"
-        app:srcCompat="@mipmap/search_dogs_icon"
-        android:id="@+id/imageView6"
-        android:layout_alignTop="@+id/imageView5"
-        android:layout_alignParentStart="true" />
-
-    <ImageView
-        android:layout_width="190dp"
-        android:layout_height="190dp"
-        app:srcCompat="@mipmap/dog_walk_icon"
-        android:id="@+id/imageView7"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="8dp" />
-
-</RelativeLayout>-->
 

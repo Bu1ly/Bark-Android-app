@@ -45,7 +45,7 @@ public class Profile extends Activity {
     ///// after save need to save to the server
     ///// on load the page need to get from the server the user profile
 
-    private String UpdaeUser_url = "http://192.168.1.29:8000/change_info";
+    private String UpdaeUser_url = "https://barkandroid.herokuapp.com/change_info";
     private static int RESULT_LOAD_IMAGE = 1;
     private ImageView imageView;
     private EditText userName ,DogType;
@@ -206,6 +206,10 @@ public class Profile extends Activity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
+
+                        System.out.println("\n\n\n\nFIX ME!!! error: " + error.toString()+"\n\n\n\n");
+
+
                         Toast.makeText(Profile.this, "Profile was update",
                                 Toast.LENGTH_SHORT).show();
                         finish();

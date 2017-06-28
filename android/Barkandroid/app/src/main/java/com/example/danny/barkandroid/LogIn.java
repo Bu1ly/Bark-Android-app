@@ -14,17 +14,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.database.FirebaseListAdapter;
-import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
+
 
 import org.json.JSONObject;
 
@@ -44,7 +40,9 @@ public class LogIn extends AppCompatActivity {
     String email,password;
     TextView link_to_singup ,_temp_link_to_map;
     AlertDialog.Builder builder;
-    String reg_url ="http://192.168.1.29:8000/login";
+    String reg_url ="https://barkandroid.herokuapp.com/login";
+   //String reg_url ="http://192.168.1.29:8000/login";
+
 
 
     int SIGN_IN_REQUEST_CODE;
@@ -56,10 +54,6 @@ public class LogIn extends AppCompatActivity {
         setContentView(R.layout.login);
 
 
-        ////delete
-//        File dir = getFilesDir();
-//        File file = new File(dir, "UserKey");
-//        file.delete();
 
         FileInputStream fin;
         int c;
@@ -100,48 +94,18 @@ public class LogIn extends AppCompatActivity {
 
 
 
-/*
-        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
-            // Start sign in/sign up activity
-            startActivityForResult(
-                    AuthUI.getInstance()
-                            .createSignInIntentBuilder()
-                            .build(),
-                    SIGN_IN_REQUEST_CODE
-            );
-        } else {
-            // User is already signed in. Therefore, display
-            // a welcome Toast
-            Toast.makeText(this,
-                    "Welcome " + FirebaseAuth.getInstance()
-                            .getCurrentUser()
-                            .getDisplayName(),
-                    Toast.LENGTH_LONG)
-                    .show();
 
-            // Load chat room contents
-          //  displayChatMessages();
-        }
-
-        */
 
         login_bn = (Button)findViewById(R.id.btn_login);
         Email=(EditText)findViewById(R.id.input_email);
         Password = (EditText)findViewById(R.id.input_password);
         link_to_singup=(TextView)findViewById(R.id.link_signup);
-        _temp_link_to_map=(TextView)findViewById(R.id.temp_link_to_map);
+       // _temp_link_to_map=(TextView)findViewById(R.id.temp_link_to_map);
 
 
         builder = new AlertDialog.Builder(this);
 
 
-//        ContentResolver contentResolver = getContentResolver();
-//
-//        final int REQUEST_CODE_ASK_PERMISSIONS = 123;
-//        ActivityCompat.requestPermissions(this, new String[]{"android.permission.ACCESS_NETWORK_STATE"}, REQUEST_CODE_ASK_PERMISSIONS);
-//        if(ContextCompat.checkSelfPermission(getBaseContext(), "android.permission.ACCESS_NETWORK_STATE") == PackageManager.PERMISSION_GRANTED) {
-//      //      cursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, null, null, null);
-//        }
 
         link_to_singup.setOnClickListener(new View.OnClickListener()
         {
@@ -153,18 +117,7 @@ public class LogIn extends AppCompatActivity {
 
         });
 
-        ///////////////
-        _temp_link_to_map.setOnClickListener(new View.OnClickListener()
-        {
 
-            public void onClick(View v)
-            {
-                startActivity(new Intent(LogIn.this,menu_grid.class));
-            }
-
-        });
-
-        ///////////////
 
 
         login_bn.setOnClickListener(new View.OnClickListener() {
@@ -240,6 +193,8 @@ public class LogIn extends AppCompatActivity {
                                 });
                         MySingleton.getInstance(LogIn.this).addToRequestque(jsObjRequest);
 
+
+
                     }
             }
         });
@@ -281,32 +236,8 @@ public class LogIn extends AppCompatActivity {
 
 
     }
-/*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == SIGN_IN_REQUEST_CODE) {
-            if(resultCode == RESULT_OK) {
-                Toast.makeText(this,
-                        "Successfully signed in. Welcome!",
-                        Toast.LENGTH_LONG)
-                        .show();
-            //    displayChatMessages();
-            } else {
-                Toast.makeText(this,
-                        "We couldn't sign you in. Please try again later.",
-                        Toast.LENGTH_LONG)
-                        .show();
 
-                // Close the app
-                finish();
-            }
-        }
-
-    }
-                */
 
 
 }
