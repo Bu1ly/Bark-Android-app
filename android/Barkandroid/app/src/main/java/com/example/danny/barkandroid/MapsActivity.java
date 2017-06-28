@@ -1,6 +1,8 @@
 package com.example.danny.barkandroid;
 
 import android.Manifest;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,14 +11,18 @@ import android.content.res.Resources;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +36,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Result;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -74,7 +81,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ////marker style
     private BitmapDescriptor iconStyle;
     private String getMapData_url = "https://barkandroid.herokuapp.com/getUsersWithinDistance";
-
     private String UpdaeUser_url = "https://barkandroid.herokuapp.com/change_info";
 
     final long MIN_TIME_FOR_UPDATE = 1000;
@@ -87,6 +93,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Calendar c ;
     private int seconds ;
     private int secondCounter;
+
+
+    private NotificationCompat.Builder notification;
+    private PendingIntent pIntent;
+    private NotificationManager manager;
+    private Intent resultIntent;
+    private TaskStackBuilder stackBuilder;
 
 
 
@@ -329,8 +342,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                              mMap.addMarker(new MarkerOptions()
                                                 .position(new LatLng(_lat, _long)).title(object.getString("ownerName") + " " + DistanceFromPoint(_lat, _long, Lat, Long)).icon(iconStyle));
-
-                                  //  }
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -349,7 +360,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         System.out.println("FIX ME!!! error: " + error.toString());
                         AlertDialog alertDialog = new AlertDialog.Builder(MapsActivity.this).create();
                         alertDialog.setTitle("");
-                        alertDialog.setMessage("   ---Debug2---=    "+error.toString());
+                        alertDialog.setMessage("Server Error");
                         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
@@ -385,8 +396,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return ((int) distance + "m From you");
     }
 
+    private void startNotification() {
+        // TODO Auto-generated method stub
+        //Creating Notification Builder
+        notification = new NotificationCompat.Builder(MapsActivity.this);
+        //Title for Notification
+        notification.setContentTitle("Bark");
+        //Message in the Notification
+        notification.setContentText("New dog in your area");
+        //Alert shown when Notification is received
+        notification.setTicker("New dog in your area");
+        //Icon to be set on Notification
+        notification.setSmallIcon(R.mipmap.ic_launcher);
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        notification.setSound(alarmSound);
+        //Creating new Stack Builder
+        stackBuilder = TaskStackBuilder.create(MapsActivity.this);
+        stackBuilder.addParentStack(Result.class);
+        //Intent which is opened when notification is clicked
+        resultIntent = new Intent(MapsActivity.this, Result.class);
+        stackBuilder.addNextIntent(resultIntent);
+        pIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        notification.setContentIntent(pIntent);
+        manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, notification.build());
+
+    }
 
 
 
+    
+
+
+/////////
 
 }
