@@ -21,6 +21,14 @@ var LostDog = require('./LostDog');
 
 /* Default Path */
 router.post('/',function (req,res) {
+    var ipAddr = req.headers["x-forwarded-for"];
+    if (ipAddr){
+        var list = ipAddr.split(",");
+        ipAddr = list[list.length-1];
+    } else {
+        ipAddr = req.connection.remoteAddress;
+    }
+
     console.log("IM IN / path");
     res.status(200).end("/ Path is OK");
 });

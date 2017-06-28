@@ -28,14 +28,17 @@ var upload = multer({ dest: 'uploads/' });
 
 /// -- MONGODB CONNECTION -- ///
 
+
+
 var connect = mongoose.connect(address,function (error) {
-    console.log("Trying to connect to the Mlab DB....\n");
+    console.log("Trying to connect to the Mlab DB.");
     if(error){
         console.log("Warning! Error occurred!\n\n");
-        console.log(error.name, "<- Is the error name\n", error.message , "<- Is the error message");
+        console.log(error.name, "<- Is the error name\n", error.message , "<- Is the error message.");
     }
     else{
-        console.log("App is now connected to Mlab DB");
+        console.log("App is now connected to Mlab DB.");
+        console.log("Server is listener at: " + cfg.herokuUrl + ".");
     }
 });
 
