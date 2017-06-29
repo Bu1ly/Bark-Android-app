@@ -61,24 +61,20 @@ public class ListAdapter extends ArrayAdapter<JSONObject> {
 
             try {
                 if(position==0){
-
                     Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(),mipmap.doglost1);
                     temp.setImageBitmap(largeIcon);
                 }
                 else if(position==1){
-
                     Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(),mipmap.doglost2);
                     temp.setImageBitmap(largeIcon);
                 }
                 else if(position==2){
-
                     Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(),mipmap.dog_lost3_german);
                     temp.setImageBitmap(largeIcon);
                 }
                 else{
                     Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(),mipmap.dog_icon_lost);
                     temp.setImageBitmap(largeIcon);
-
                 }
 
 

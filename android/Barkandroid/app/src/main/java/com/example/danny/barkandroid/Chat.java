@@ -95,7 +95,7 @@ public class Chat extends AppCompatActivity {
                            // Log.w(TAG, "signInAnonymously:failure", task.getException());
                             Toast.makeText(Chat.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                           // updateUI(null);
+
                         }
 
                         // ...
@@ -103,15 +103,6 @@ public class Chat extends AppCompatActivity {
                 });
 
 
-
-            // User is already signed in. Therefore, display
-            // a welcome Toast
-//            Toast.makeText(this,
-//                    "Welcome " + FirebaseAuth.getInstance()
-//                            .getCurrentUser()
-//                            .getDisplayName(),
-//                    Toast.LENGTH_LONG)
-//                    .show();
 
             // Load chat room contents
             displayChatMessages();
@@ -136,9 +127,7 @@ public class Chat extends AppCompatActivity {
                             .setValue(new ChatMessage(input.getText().toString(),   ///insert here username from the server
                                             obj.getString("ownerName"))
 
-    //                                FirebaseAuth.getInstance()
-    //                                        .getCurrentUser()
-    //                                        .getDisplayName())
+
                             );
                 } catch (JSONException e) {
                     e.printStackTrace();

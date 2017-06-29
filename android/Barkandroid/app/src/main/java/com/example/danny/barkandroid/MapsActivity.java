@@ -396,6 +396,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return ((int) distance + "m From you");
     }
 
+    // Send Notification
     private void startNotification() {
         // TODO Auto-generated method stub
         //Creating Notification Builder
@@ -425,7 +426,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-    
+
 
 
 /////////

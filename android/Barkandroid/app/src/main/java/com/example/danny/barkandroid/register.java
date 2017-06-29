@@ -61,10 +61,6 @@ public class register extends AppCompatActivity {
         link_login_btn=(TextView)findViewById(R.id.link_login);
         builder = new AlertDialog.Builder(register.this);
 
-//        final int REQUEST_CODE_ASK_PERMISSIONS = 123;
-//        ActivityCompat.requestPermissions(this, new String[]{"android.permission.READ_SMS"}, REQUEST_CODE_ASK_PERMISSIONS);
-
-
 
         link_login_btn.setOnClickListener(new View.OnClickListener()
         {
@@ -115,54 +111,6 @@ public class register extends AppCompatActivity {
                {
 
 
-//                   //////////////////
-//                  // JsonObjectRequest jsonObjectRequest =new JsonObjectRequest(Request.Method.POST, reg_url,(String)new Response.Listener<JSONObject>()
-//                   StringRequest stringRequest = new StringRequest(Request.Method.POST, reg_url,
-//                           new Response.Listener<String>() {
-//                               @Override
-//                               public void onResponse(String response) {
-//                                        System.out.println("good!!");
-//                                   try {
-//                                       JSONArray jsonArray  = new JSONArray(response);
-//                                       JSONObject jsonObject = jsonArray.getJSONObject(0);
-//                                       String code = jsonObject.getString("code");
-//                                       String message = jsonObject.getString("message");
-//                                       builder.setTitle("Server Response...");
-//                                       builder.setMessage(message);
-//                                       displayAlert(code);
-//                                   } catch (JSONException e) {
-//                                       e.printStackTrace();
-//                                   }
-//
-//
-//
-//                               }
-//
-//                           }, new Response.ErrorListener() {
-//
-//                       @Override
-//                       public void onErrorResponse(VolleyError error) {
-//
-//                       }
-//                   }
-//
-//                   ){
-//                       @Override
-//                       protected Map<String, String> getParams() throws AuthFailureError {
-//                           Map<String,String> params =new HashMap<String, String>();
-//                           params.put("name", name);
-//                           params.put("email",email);
-//                           params.put("username",username);
-//                           params.put("password",password);
-//                           return params;
-//                       }
-//                   };
-//                   MySingleton.getInstance(register.this).addToRequestque(stringRequest);
-//                   System.out.println("stringRequest: " + stringRequest.toString());
-//                   System.out.println("Send Register Data to DB");
-//
-//                   ////////////////
-                    /// in db  : dogName, gender, age, ownerName, email, sis
 
                    Map<String, String> params = new HashMap();
 
